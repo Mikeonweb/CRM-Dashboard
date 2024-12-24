@@ -1,9 +1,12 @@
 "use client";
 
 
+// components/InsightPanel.js
 import { useState } from "react";
+import { MdArrowForwardIos } from "react-icons/md";
+import { FaRegUserCircle } from "react-icons/fa";
 
-const InsightPanel = ({ data }) => {
+const InsightPanel = ({ data, userProfiles }) => {
   const {
     goalPercentage,
     targetAmount,
@@ -24,9 +27,17 @@ const InsightPanel = ({ data }) => {
   };
 
   const [selectedCard, setSelectedCard] = useState(null);
+  const [profiles, setProfiles] = useState(userProfiles);
 
   const handleCardClick = (card) => {
     setSelectedCard(card);
+  };
+
+  const handleNext = () => {
+    setProfiles((prevProfiles) => {
+      const [first, ...rest] = prevProfiles;
+      return [...rest, first];
+    });
   };
 
   return (
@@ -86,7 +97,7 @@ const InsightPanel = ({ data }) => {
       </div>
 
       {/* Engagement Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
         {["Engagement", "Top Leads", "Qualified Opportunities"].map((card) => (
           <div
             key={card}
@@ -99,6 +110,33 @@ const InsightPanel = ({ data }) => {
             </p>
           </div>
         ))}
+      </div>
+
+      {/* User Profiles */}
+      <div className="relative">
+        <div className="flex gap-4 overflow-x-auto overflow-hidden no-scrollbar">
+          {profiles.map((profile, index) => (
+            <div
+              key={index}
+              className="flex-shrink-0 w-40 just bg-gray-100 p-4 rounded-lg shadow-md text-center"
+            >
+                <FaRegUserCircle />
+              {/* <img
+                src={profile.image}
+                alt={profile.name}
+                className="w-16 h-16 rounded-full mx-auto mb-2"
+              /> */}
+              <h4 className="font-semibold text-lg">{profile.name}</h4>
+              <p className="text-sm text-gray-600">{profile.achievement}</p>
+            </div>
+          ))}
+        </div>
+        <button
+          onClick={handleNext}
+          className="absolute top-1/2 border-2 border-gray-600 transform -translate-y-1/2 right-0 bg-white text-black p-2 rounded-full shadow hover:bg-gray-300 transition"
+        >
+          <MdArrowForwardIos />
+        </button>
       </div>
 
       {/* Modal or Detailed View */}
@@ -121,3 +159,4 @@ const InsightPanel = ({ data }) => {
 };
 
 export default InsightPanel;
+

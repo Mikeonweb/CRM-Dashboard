@@ -42,7 +42,7 @@ import {
   MdEditRoad,
   MdOutlineAvTimer,
   MdOutlineDelete,
-  MdChatBubbleOutline,
+  MdChatBubbleOutline, MdKeyboardArrowUp
 } from "react-icons/md";
 import { FcCollaboration } from "react-icons/fc";
 import { PiPackage } from "react-icons/pi";
@@ -59,6 +59,8 @@ export default function Home() {
   const [selectedUser, setSelectedUser] = useState(null);
   // State to control modal visibility
   const [isModalOpen, setModalOpen] = useState(false);
+  // State to control agent skill toggle
+  const [isAgentSkillOpen, setAgentSkillOpen] = useState(false);
 
   /**
    * Mock Leads Data
@@ -91,6 +93,19 @@ export default function Home() {
     },
   ];
 
+  // skill data
+  const skills = [
+    "Inbox and Calendar Management",
+    "Google Workspace",
+    "Travel Planning",
+    "Project Management",
+    "Internet Research",
+    "Organizing Meetings",
+    "Expense Tracking",
+    "Data Entry",
+    "Emotional Intelligence",
+  ];
+
   // insight data
   const data = {
     goalPercentage: 68,
@@ -102,6 +117,22 @@ export default function Home() {
     leadsAmount: 5000,
     topLeads: 20,
   };
+
+  const userProfiles = [
+    { name: "Alice Johnson", achievement: "Top Seller", image: "/user1.jpg" },
+    { name: "Bob Smith", achievement: "Exceeded Quota", image: "/user2.jpg" },
+    {
+      name: "Charlie Brown",
+      achievement: "Client Favorite",
+      image: "/user3.jpg",
+    },
+    {
+      name: "Diana Prince",
+      achievement: "Highest Revenue",
+      image: "/user4.jpg",
+    },
+    { name: "Ethan Hunt", achievement: "Fast Closer", image: "/user5.jpg" },
+  ];
 
   /**
    * Handle User Row Click
@@ -161,6 +192,88 @@ export default function Home() {
                 <MdKeyboardArrowDown />
               </span>
             </div>
+
+            {/* Agent Skill */}
+            <p
+  className="flex items-center gap-2 my-4 cursor-pointer text-blue-600 hover:underline"
+  onClick={() => setAgentSkillOpen(!isAgentSkillOpen)}
+>
+  Agent skill
+</p>
+{isAgentSkillOpen && (
+  <div
+    className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300"
+    onClick={() => setAgentSkillOpen(false)} // Close modal on outside click
+  >
+    {/* White parent Background Wrapper */}
+    <div className="bg-white h-[80%] w-[80%] rounded-lg flex flex-col items-center justify-center relative">
+      
+      {/* Header aligned top-left */}
+      <div className="absolute top-4 left-4">
+        <h3 className="font-bold text-lg">Agent Skills</h3>
+      </div>
+
+      {/* Modal Content Wrapper */}
+      <div
+        className="bg-white border border-gray-200 shadow-xl shadow-gray-500/50 rounded-md p-6 w-96 md:w-[90%] max-w-[90%] transform transition-transform duration-300 z-60 relative flex flex-col"
+        style={{
+          opacity: isAgentSkillOpen ? 1 : 0,
+          transform: isAgentSkillOpen ? "scale(1)" : "scale(0.95)",
+        }}
+        onClick={(e) => e.stopPropagation()} // Prevent closing on inner click
+      >
+        <div className="flex justify-between">
+          <h3 className="">Check if on-hand inventory will allow all orders to  ship without delay</h3>
+          <p><MdKeyboardArrowUp /></p>
+        </div>
+        {/* Static Skills List */}
+        <div className="flex flex-wrap gap-2 justify-start mt-4">
+          <p>When</p>
+          <p className="px-3 py-1 bg-blue-200 border border-gray-300 rounded-full text-sm text-blue-700">
+            any vendor
+          </p>
+          <p>sends an email with changes to</p>
+          <p className="px-3 py-1 bg-blue-200 border border-gray-300 rounded-full text-sm text-blue-700">
+            Confirmed purchase orders
+          </p>
+          <p>, check if the resulting</p>
+          <p className="px-3 py-1 bg-blue-200 border border-gray-300 rounded-full text-sm text-blue-700">
+            on-hand inventory
+          </p>
+          <p>will allow</p>
+          <p className="px-3 py-1 bg-blue-200 border border-gray-300 rounded-full text-sm text-blue-700">
+            all sales orders
+          </p>
+          <p>to</p>
+          <p className="px-3 py-1 bg-blue-200 border border-gray-300 rounded-full text-sm text-blue-700">
+            ship without delay
+          </p>
+          <p>.if so,</p>
+          <p className="px-3 py-1 bg-blue-200 border border-gray-300 rounded-full text-sm text-blue-700">
+            update the purchase order
+          </p>
+          <p>to reflect the change.</p>
+        </div>
+      </div>
+
+      {/* Close button at the bottom-right */}
+      <button
+        className="absolute bottom-4 right-4 px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+        onClick={() => setAgentSkillOpen(false)}
+      >
+        Close
+      </button>
+    </div>
+  </div>
+)}
+
+
+
+
+
+
+
+
           </div>
 
           <div className="py-2 pl-4">
@@ -333,7 +446,7 @@ export default function Home() {
 
           {/* insight panel */}
           <div className="flex items-center justify-center">
-            <InsightPanel data={data} />
+            <InsightPanel data={data} userProfiles={userProfiles} />
           </div>
 
           <div>
