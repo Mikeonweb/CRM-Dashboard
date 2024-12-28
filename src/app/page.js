@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { X } from "lucide-react";
 import LeadsTable from "../components/LeadsTable";
 import UserModal from "../components/UserModal";
 import InsightPanel from "../components/InsightPanel";
@@ -21,7 +22,7 @@ import {
   HiOutlineChatBubbleLeftRight,
 } from "react-icons/hi2";
 import { GiJerusalemCross } from "react-icons/gi";
-import { SiDynatrace } from "react-icons/si";
+import { SiDynatrace, SiMailboxdotorg } from "react-icons/si";
 import {
   LuClipboardPenLine,
   LuUserRound,
@@ -42,7 +43,8 @@ import {
   MdEditRoad,
   MdOutlineAvTimer,
   MdOutlineDelete,
-  MdChatBubbleOutline, MdKeyboardArrowUp
+  MdChatBubbleOutline,
+  MdKeyboardArrowUp,
 } from "react-icons/md";
 import { FcCollaboration } from "react-icons/fc";
 import { PiPackage } from "react-icons/pi";
@@ -116,6 +118,17 @@ export default function Home() {
     qualifiedAmount: 10000,
     leadsAmount: 5000,
     topLeads: 20,
+  };
+
+  // Agent skill Email field
+  const [email, setEmail] = useState("");
+
+  const getInitial = (email) => {
+    return email ? email[0].toUpperCase() : "?";
+  };
+
+  const handleClear = () => {
+    setEmail("");
   };
 
   const userProfiles = [
@@ -195,85 +208,142 @@ export default function Home() {
 
             {/* Agent Skill */}
             <p
-  className="flex items-center gap-2 my-4 cursor-pointer text-blue-600 hover:underline"
-  onClick={() => setAgentSkillOpen(!isAgentSkillOpen)}
->
-  Agent skill
-</p>
-{isAgentSkillOpen && (
-  <div
-    className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300"
-    onClick={() => setAgentSkillOpen(false)} // Close modal on outside click
-  >
-    {/* White parent Background Wrapper */}
-    <div className="bg-white h-[80%] w-[80%] rounded-lg flex flex-col items-center justify-center relative">
-      
-      {/* Header aligned top-left */}
-      <div className="absolute top-4 left-4">
-        <h3 className="font-bold text-lg">Agent Skills</h3>
-      </div>
+              className="flex items-center gap-2 my-4 cursor-pointer text-blue-600 hover:underline"
+              onClick={() => setAgentSkillOpen(!isAgentSkillOpen)}
+            >
+              Agent skill
+            </p>
+            {isAgentSkillOpen && (
+              <div
+                className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300"
+                onClick={() => setAgentSkillOpen(false)} // Close modal on outside click
+              >
+                {/* White parent Background Wrapper */}
+                <div className="bg-white h-[80%] w-[80%] rounded-lg flex flex-col items-center justify-center relative">
+                  {/* Header aligned top-left */}
+                  <div className="absolute top-20 left-16">
+                    <h3 className="flex items-center gap-2 font-bold text-lg">
+                      <SiDynatrace className="text-red-500" /> Agent Skills
+                    </h3>
+                  </div>
 
-      {/* Modal Content Wrapper */}
-      <div
-        className="bg-white border border-gray-200 shadow-xl shadow-gray-500/50 rounded-md p-6 w-96 md:w-[90%] max-w-[90%] transform transition-transform duration-300 z-60 relative flex flex-col"
-        style={{
-          opacity: isAgentSkillOpen ? 1 : 0,
-          transform: isAgentSkillOpen ? "scale(1)" : "scale(0.95)",
-        }}
-        onClick={(e) => e.stopPropagation()} // Prevent closing on inner click
-      >
-        <div className="flex justify-between">
-          <h3 className="">Check if on-hand inventory will allow all orders to  ship without delay</h3>
-          <p><MdKeyboardArrowUp /></p>
-        </div>
-        {/* Static Skills List */}
-        <div className="flex flex-wrap gap-2 justify-start mt-4">
-          <p>When</p>
-          <p className="px-3 py-1 bg-blue-200 border border-gray-300 rounded-full text-sm text-blue-700">
-            any vendor
-          </p>
-          <p>sends an email with changes to</p>
-          <p className="px-3 py-1 bg-blue-200 border border-gray-300 rounded-full text-sm text-blue-700">
-            Confirmed purchase orders
-          </p>
-          <p>, check if the resulting</p>
-          <p className="px-3 py-1 bg-blue-200 border border-gray-300 rounded-full text-sm text-blue-700">
-            on-hand inventory
-          </p>
-          <p>will allow</p>
-          <p className="px-3 py-1 bg-blue-200 border border-gray-300 rounded-full text-sm text-blue-700">
-            all sales orders
-          </p>
-          <p>to</p>
-          <p className="px-3 py-1 bg-blue-200 border border-gray-300 rounded-full text-sm text-blue-700">
-            ship without delay
-          </p>
-          <p>.if so,</p>
-          <p className="px-3 py-1 bg-blue-200 border border-gray-300 rounded-full text-sm text-blue-700">
-            update the purchase order
-          </p>
-          <p>to reflect the change.</p>
-        </div>
-      </div>
+                  {/* Modal Content Wrapper */}
+                  <div
+                    className="bg-white border border-gray-200 shadow-xl shadow-gray-500/10 rounded-md p-6 w-96 md:w-[90%] max-w-[90%] transform transition-transform duration-300 z-60 relative flex flex-col"
+                    style={{
+                      opacity: isAgentSkillOpen ? 1 : 0,
+                      transform: isAgentSkillOpen ? "scale(1)" : "scale(0.95)",
+                    }}
+                    onClick={(e) => e.stopPropagation()} // Prevent closing on inner click
+                  >
+                    <div className="flex justify-between">
+                      <h3 className="">
+                        Check if on-hand inventory will allow all orders to ship
+                        without delay
+                      </h3>
+                      <p>
+                        <MdKeyboardArrowUp />
+                      </p>
+                    </div>
+                    {/* Static Skills List */}
+                    <div className="flex flex-wrap gap-2 justify-start mt-4">
+                      <p>When</p>
+                      <p className="px-3 py-1 bg-blue-200 border border-gray-300 rounded-full text-sm text-blue-700">
+                        any vendor
+                      </p>
+                      <p>sends an email with changes to</p>
+                      <p className="px-3 py-1 bg-blue-200 border border-gray-300 rounded-full text-sm text-blue-700">
+                        Confirmed purchase orders
+                      </p>
+                      <p>, check if the resulting</p>
+                      <p className="px-3 py-1 bg-blue-200 border border-gray-300 rounded-full text-sm text-blue-700">
+                        on-hand inventory
+                      </p>
+                      <p>will allow</p>
+                      <p className="px-3 py-1 bg-blue-200 border border-gray-300 rounded-full text-sm text-blue-700">
+                        all sales orders
+                      </p>
+                      <p>to</p>
+                      <p className="px-3 py-1 bg-blue-200 border border-gray-300 rounded-full text-sm text-blue-700">
+                        ship without delay
+                      </p>
+                      <p>.if so,</p>
+                      <p className="px-3 py-1 bg-blue-200 border border-gray-300 rounded-full text-sm text-blue-700">
+                        update the purchase order
+                      </p>
+                      <p>to reflect the change.</p>
+                    </div>
+                  </div>
 
-      {/* Close button at the bottom-right */}
-      <button
-        className="absolute bottom-4 right-4 px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-        onClick={() => setAgentSkillOpen(false)}
-      >
-        Close
-      </button>
-    </div>
-  </div>
-)}
+                  {/* Modal Content Wrapper */}
+                  <div
+                    className="bg-white mt-6 p-6 w-96 md:w-[90%] max-w-[90%] transform transition-transform duration-300 z-60 relative flex flex-col"
+                    style={{
+                      opacity: isAgentSkillOpen ? 1 : 0,
+                      transform: isAgentSkillOpen ? "scale(1)" : "scale(0.95)",
+                    }}
+                    onClick={(e) => e.stopPropagation()} // Prevent closing on inner click
+                  >
+                    <div className="">
+                      <h3 className="flex items-center gap-2 font-bold text-lg">
+                        <SiMailboxdotorg className="text-blue-500" /> Enable
+                        email access
+                      </h3>
+                      <p className="py-2">
+                        Allow the agent to access email inboxes to read mail
+                        from known vendors
+                      </p>
+                    </div>
+                    {/* Static Skills List */}
+                    <div className="flex w-full gap-4">
+                      <div className="relative flex items-center flex-1">
+                        {/* Initial Letter Avatar */}
+                        <div className="absolute left-3 flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 text-blue-600 text-sm font-medium">
+                          {getInitial(email)}
+                        </div>
 
+                        {/* Email Input */}
+                        <input
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="Enter your email"
+                          className="w-full pl-12 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                        />
 
+                        {/* Clear Button */}
+                        {email && (
+                          <button
+                            onClick={handleClear}
+                            className="absolute right-3 p-1 rounded-full hover:bg-gray-100"
+                            aria-label="Clear email"
+                          >
+                            <X size={16} className="text-gray-500" />
+                          </button>
+                        )}
+                      </div>
+                      <button className="bg-blue-700 px-4 py-2 rounded text-white hover:bg-blue-800 whitespace-nowrap">
+                        Allow Access
+                      </button>
+                    </div>
+                  </div>
 
-
-
-
-
-
+                  {/* Close button at the bottom-right */}
+                  <button
+                    className="absolute bottom-4 right-4 px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                    onClick={() => setAgentSkillOpen(false)}
+                  >
+                    Close
+                  </button>
+                  <button
+                    className="absolute bottom-4 right-32 px-6 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
+                    onClick={() => setAgentSkillOpen(false)}
+                  >
+                    Activate
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="py-2 pl-4">
