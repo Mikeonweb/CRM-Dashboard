@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { X } from "lucide-react";
 import LeadsTable from "../components/LeadsTable";
 import UserModal from "../components/UserModal";
-import InsightPanel from "../components/InsightPanel";
+import Dashboard from "@/components/Dashboard";
 
 import { CgMenuGridO } from "react-icons/cg";
 import { FiSettings, FiMenu, FiPhoneCall } from "react-icons/fi";
@@ -94,31 +94,6 @@ export default function Home() {
       createdOn: "3/10/2024 9:30 AM",
     },
   ];
-
-  // skill data
-  const skills = [
-    "Inbox and Calendar Management",
-    "Google Workspace",
-    "Travel Planning",
-    "Project Management",
-    "Internet Research",
-    "Organizing Meetings",
-    "Expense Tracking",
-    "Data Entry",
-    "Emotional Intelligence",
-  ];
-
-  // insight data
-  const data = {
-    goalPercentage: 68,
-    targetAmount: 100000,
-    amountWon: 30000,
-    amountCommitted: 20000,
-    bestCaseAmount: 15000,
-    qualifiedAmount: 10000,
-    leadsAmount: 5000,
-    topLeads: 20,
-  };
 
   // Agent skill Email field
   const [email, setEmail] = useState("");
@@ -516,8 +491,14 @@ export default function Home() {
 
           {/* insight panel */}
           <div className="flex items-center justify-center">
-            <InsightPanel data={data} userProfiles={userProfiles} />
+            <Dashboard />
           </div>
+
+          {/* <main className="min-h-screen bg-gray-100 p-4 md:p-8">
+            <div className="mx-auto">
+              <Dashboard />
+            </div>
+          </main> */}
 
           <div>
             <div className="my-2">
