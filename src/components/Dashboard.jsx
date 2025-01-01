@@ -87,13 +87,14 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="w-full max-w-7xl p-4 bg-white rounded-3xl border border-gray-200">
+    <div className="w-full max-w-7xl p-4 bg-white rounded-3xl border border-gray-900">
       <div className="space-y-6">
         {/* Header Section */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-purple-400 rounded-lg"></div>
-            <div>
+        <div className="userprogress flex items-center justify-between space-x-4">
+          {/* User Profile Section */}
+          <div className="flex items-center space-x-2 flex-1">
+            <div className="w-6 h-6 bg-gradient-to-r from-blue-400 to-purple-400 rounded-lg"></div>
+            <div className="text-sm">
               <span className="text-gray-700">Hi Mona, </span>
               <span>
                 {progress}% of goal achieved and rest can be achieved by
@@ -102,120 +103,131 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <div className="flex items-center space-x-4">
-            <div className="text-sm text-gray-500">1 month until Q4 ends</div>
-            <div className="flex items-center">
-              <span className="font-medium">Target: ${target} million</span>
-              <span className="ml-4 text-gray-500">
-                {progress}% of target achieved
+          {/* Progress Bar and Details Section */}
+          <div className="flex flex-col items-start flex-1">
+            {/* Progress Details */}
+            <div className="flex items-center mt-2 space-x-3 text-xs text-gray-600">
+              <div>1 month until Q4 ends</div>
+              <div className="flex items-center space-x-1">
+                <span className="font-medium">Target: ${target} million</span>
+                <span>{progress}% of target achieved</span>
+              </div>
+            </div>
+
+            {/* Progress Bar */}
+            <div className="progressbar flex space-x-1 w-full">
+              <div
+                style={{ width: "18%" }}
+                className="h-1.5 bg-green-500 rounded-l-full"
+              ></div>
+              <div style={{ width: "15%" }} className="h-1.5 bg-blue-500"></div>
+              <div
+                style={{ width: "17%" }}
+                className="h-1.5 bg-purple-400"
+              ></div>
+              <div
+                style={{ width: "18%" }}
+                className="h-1.5 bg-orange-300"
+              ></div>
+              <div
+                style={{ width: "32%" }}
+                className="h-1.5 bg-gray-200 rounded-r-full"
+              ></div>
+            </div>
+
+            {/* Legend */}
+            <div className="legend flex flex-wrap justify-end text-xs space-x-2 mt-1 text-gray-600">
+              <span className="cursor-pointer hover:text-gray-900">
+                Won $18m
+              </span>
+              <span className="cursor-pointer hover:text-gray-900">
+                Committed $8m
+              </span>
+              <span className="cursor-pointer hover:text-gray-900">
+                Best case $7m
+              </span>
+              <span className="cursor-pointer hover:text-gray-900">
+                Qualified $3m
+              </span>
+              <span className="cursor-pointer hover:text-gray-900">
+                Leads $75m
               </span>
             </div>
-            <button className="hover:bg-gray-100 p-1 rounded-full transition-colors">
-              <ChevronDown className="w-5 h-5 text-gray-500" />
-            </button>
           </div>
         </div>
 
-        {/* Progress Bar */}
-        <div className="flex space-x-1">
-          <div
-            style={{ width: "18%" }}
-            className="h-2 bg-green-500 rounded-l-full"
-          ></div>
-          <div style={{ width: "15%" }} className="h-2 bg-blue-500"></div>
-          <div style={{ width: "17%" }} className="h-2 bg-purple-400"></div>
-          <div style={{ width: "18%" }} className="h-2 bg-orange-300"></div>
-          <div
-            style={{ width: "32%" }}
-            className="h-2 bg-gray-200 rounded-r-full"
-          ></div>
-        </div>
+        <div className="flex">
+          {/* Main Content */}
+          <div>
+            <p className="text-gray-700 mb-4">
+              Copilot has pinpointed 20 key leads that show strong purchase
+              intent and are actively engaging. These leads need your focus.
+            </p>
 
-        {/* Legend */}
-        <div className="flex text-sm space-x-4 text-gray-600">
-          <span className="cursor-pointer hover:text-gray-900">Won $18m</span>
-          <span className="cursor-pointer hover:text-gray-900">
-            Committed $8m
-          </span>
-          <span className="cursor-pointer hover:text-gray-900">
-            Best case $7m
-          </span>
-          <span className="cursor-pointer hover:text-gray-900">
-            Qualified $3m
-          </span>
-          <span className="cursor-pointer hover:text-gray-900">Leads $75m</span>
-        </div>
+            <div className="grid md:grid-cols-2 gap-4">
+              {leads.map((lead) => (
+                <div
+                  key={lead.id}
+                  className="p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer"
+                  onClick={() => handleLeadClick(lead)}
+                >
+                  <div className="flex justify-between items-start">
+                    <div className="flex space-x-3">
+                      <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
+                      <div>
+                        <h3 className="font-medium">{lead.name}</h3>
+                        <p className="text-sm text-gray-500">
+                          {lead.title} • {lead.company}
+                        </p>
+                      </div>
+                    </div>
+                    <ArrowUpRight className="w-5 h-5 text-blue-600" />
+                  </div>
 
-        {/* Main Content */}
-        <div>
-          <p className="text-gray-700 mb-4">
-            Copilot has pinpointed 20 key leads that show strong purchase intent
-            and are actively engaging. These leads need your focus.
-          </p>
+                  <div className="mt-4 p-4 bg-blue-100 rounded-lg">
+                    <h4 className="font-medium">{lead.action}</h4>
+                    <p className="text-sm text-gray-600 mt-1">
+                      {lead.description}
+                    </p>
+                  </div>
 
-          <div className="grid md:grid-cols-2 gap-4">
-            {leads.map((lead) => (
-              <div
-                key={lead.id}
-                className="p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer"
-                onClick={() => handleLeadClick(lead)}
-              >
-                <div className="flex justify-between items-start">
-                  <div className="flex space-x-3">
-                    <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
+                  <div className="mt-3 flex space-x-3">
+                    {lead.tags.map((tag, index) => (
+                      <React.Fragment key={index}>
+                        {index > 0 && <span>•</span>}
+                        <span className="text-sm text-gray-600">{tag}</span>
+                      </React.Fragment>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Side Activities */}
+          <div className="">
+            <h3 className="font-medium mb-4">Other key activities</h3>
+            <div className="space-y-4">
+              {activities.map((activity) => (
+                <div
+                  key={activity.id}
+                  className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors"
+                  onClick={() => handleLeadClick(activity)}
+                >
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-gray-200 rounded-lg"></div>
                     <div>
-                      <h3 className="font-medium">{lead.name}</h3>
+                      <h4 className="font-medium">{activity.name}</h4>
                       <p className="text-sm text-gray-500">
-                        {lead.title} • {lead.company}
+                        {activity.company} • {activity.value} •{" "}
+                        {activity.timeframe}
                       </p>
                     </div>
                   </div>
                   <ArrowUpRight className="w-5 h-5 text-blue-600" />
                 </div>
-
-                <div className="mt-4 p-4 bg-white rounded-lg">
-                  <h4 className="font-medium">{lead.action}</h4>
-                  <p className="text-sm text-gray-600 mt-1">
-                    {lead.description}
-                  </p>
-                </div>
-
-                <div className="mt-3 flex space-x-3">
-                  {lead.tags.map((tag, index) => (
-                    <React.Fragment key={index}>
-                      {index > 0 && <span>•</span>}
-                      <span className="text-sm text-gray-600">{tag}</span>
-                    </React.Fragment>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Side Activities */}
-        <div className="mt-6">
-          <h3 className="font-medium mb-4">Other key activities</h3>
-          <div className="space-y-4">
-            {activities.map((activity) => (
-              <div
-                key={activity.id}
-                className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors"
-                onClick={() => handleLeadClick(activity)}
-              >
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-gray-200 rounded-lg"></div>
-                  <div>
-                    <h4 className="font-medium">{activity.name}</h4>
-                    <p className="text-sm text-gray-500">
-                      {activity.company} • {activity.value} •{" "}
-                      {activity.timeframe}
-                    </p>
-                  </div>
-                </div>
-                <ArrowUpRight className="w-5 h-5 text-blue-600" />
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
