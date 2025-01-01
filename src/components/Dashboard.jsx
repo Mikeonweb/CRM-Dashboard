@@ -87,7 +87,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="w-full max-w-7xl p-4 bg-white rounded-3xl border border-gray-900">
+    <div className="w-full max-w-7xl p-4 bg-white rounded-3xl">
       <div className="space-y-6">
         {/* Header Section */}
         <div className="userprogress flex items-center justify-between space-x-4">
@@ -106,7 +106,7 @@ const Dashboard = () => {
           {/* Progress Bar and Details Section */}
           <div className="flex flex-col items-start flex-1">
             {/* Progress Details */}
-            <div className="flex items-center mt-2 space-x-3 text-xs text-gray-600">
+            <div className="flex items-center mt-2 pl-2 space-x-3 text-xs text-gray-600">
               <div>1 month until Q4 ends</div>
               <div className="flex items-center space-x-1">
                 <span className="font-medium">Target: ${target} million</span>
@@ -136,7 +136,7 @@ const Dashboard = () => {
             </div>
 
             {/* Legend */}
-            <div className="legend flex flex-wrap justify-end text-xs space-x-2 mt-1 text-gray-600">
+            <div className="legend pl-2 flex flex-wrap justify-end text-xs space-x-2 mt-1 text-gray-600">
               <span className="cursor-pointer hover:text-gray-900">
                 Won $18m
               </span>
@@ -156,9 +156,9 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="flex">
+        <div className="flex gap-8 pb-6">
           {/* Main Content */}
-          <div>
+          <div className="w-[70%] text-sm">
             <p className="text-gray-700 mb-4">
               Copilot has pinpointed 20 key leads that show strong purchase
               intent and are actively engaging. These leads need your focus.
@@ -168,7 +168,7 @@ const Dashboard = () => {
               {leads.map((lead) => (
                 <div
                   key={lead.id}
-                  className="p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer"
+                  className="p-4 border rounded-xl hover:bg-gray-100 transition-colors cursor-pointer"
                   onClick={() => handleLeadClick(lead)}
                 >
                   <div className="flex justify-between items-start">
@@ -205,8 +205,8 @@ const Dashboard = () => {
           </div>
 
           {/* Side Activities */}
-          <div className="">
-            <h3 className="font-medium mb-4">Other key activities</h3>
+          <div className="w-[30%] text-sm border border-l-gray-200 border-r-0 border-t-0 border-b-0 pl-4">
+            <h3 className="font-medium text-sm mb-4">Other key activities</h3>
             <div className="space-y-4">
               {activities.map((activity) => (
                 <div
@@ -228,6 +228,8 @@ const Dashboard = () => {
                 </div>
               ))}
             </div>
+
+            <p className="text-blue-600 pt-12">show all key activities</p>
           </div>
         </div>
       </div>

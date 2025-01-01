@@ -157,7 +157,17 @@ export default function Home() {
         {/* right side */}
         <div className="bg-gray-200 h-[100%] w-60 border-r-2 border-gray-300">
           <div className="py-1 pl-4">
-            <FiMenu className="mb-2" />
+            <div className="flex justify-between">
+              <FiMenu className="mb-2" />
+
+              <p
+                className="px-4 mr-2 bg-blue-300 rounded-xl  font-semibold cursor-pointer "
+                onClick={() => setAgentSkillOpen(!isAgentSkillOpen)}
+              >
+                Agent skill
+              </p>
+            </div>
+
             <p className="flex items-center gap-2">
               <GrHomeRounded />
               Home
@@ -182,12 +192,12 @@ export default function Home() {
             </div>
 
             {/* Agent Skill */}
-            <p
-              className="flex items-center gap-2 my-4 cursor-pointer text-blue-600 hover:underline"
+            {/* <p
+              className="flex items-center gap-2 font-semibold cursor-pointer "
               onClick={() => setAgentSkillOpen(!isAgentSkillOpen)}
             >
               Agent skill
-            </p>
+            </p> */}
             {isAgentSkillOpen && (
               <div
                 className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300"
@@ -490,15 +500,9 @@ export default function Home() {
           </div>
 
           {/* insight panel */}
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center p-[0.10rem] rounded-3xl bg-gradient-to-r from-blue-400 to-purple-400">
             <Dashboard />
           </div>
-
-          {/* <main className="min-h-screen bg-gray-100 p-4 md:p-8">
-            <div className="mx-auto">
-              <Dashboard />
-            </div>
-          </main> */}
 
           <div>
             <div className="my-2">
