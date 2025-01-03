@@ -2,7 +2,7 @@
 
 // components/InsightPanel.js
 import React, { useState } from "react";
-import { ChevronDown, ArrowUpRight, MoreVertical, X } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -104,53 +104,63 @@ const Dashboard = () => {
           </div>
 
           {/* Progress Bar and Details Section */}
-          <div className="flex flex-col items-start flex-1">
+          <div className="flex flex-col justify-between items-start flex-1">
             {/* Progress Details */}
-            <div className="flex items-center mt-2 pl-2 space-x-3 text-xs text-gray-600">
+            <div className="flex items-center mt-2 pl-2 space-x-3 text-xs text-gray-600 justify-between w-full">
               <div>1 month until Q4 ends</div>
-              <div className="flex items-center space-x-1">
-                <span className="font-medium">Target: ${target} million</span>
+              <div className="flex items-center gap-6 space-x-1">
+                <span className="font-medium relative gap-2">
+                  <span className="absolute text-xl left-[-.30em] bottom-[-0.50em] z-10">
+                    |
+                  </span>
+                  <span>Target: ${target} million</span>
+                </span>
                 <span>{progress}% of target achieved</span>
               </div>
             </div>
 
             {/* Progress Bar */}
-            <div className="progressbar flex space-x-1 w-full">
+            <div className="progressbar relative flex w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
               <div
-                style={{ width: "18%" }}
-                className="h-1.5 bg-green-500 rounded-l-full"
+                style={{ width: "10%" }}
+                className="h-full bg-green-500"
               ></div>
-              <div style={{ width: "15%" }} className="h-1.5 bg-blue-500"></div>
+              <div style={{ width: "8%" }} className="h-full bg-blue-500"></div>
               <div
-                style={{ width: "17%" }}
-                className="h-1.5 bg-purple-400"
-              ></div>
-              <div
-                style={{ width: "18%" }}
-                className="h-1.5 bg-orange-300"
+                style={{ width: "7%" }}
+                className="h-full bg-purple-400"
               ></div>
               <div
-                style={{ width: "32%" }}
-                className="h-1.5 bg-gray-200 rounded-r-full"
+                style={{ width: "10%" }}
+                className="h-full bg-orange-300"
+              ></div>
+              <div
+                style={{ width: "65%" }}
+                className="h-full bg-gray-200"
               ></div>
             </div>
 
             {/* Legend */}
             <div className="legend pl-2 flex flex-wrap justify-end text-xs space-x-2 mt-1 text-gray-600">
-              <span className="cursor-pointer hover:text-gray-900">
-                Won $18m
+              <span className="flex items-center space-x-1 cursor-pointer hover:text-gray-900">
+                <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                <span className="text-[10px]">Won $18m</span>
               </span>
-              <span className="cursor-pointer hover:text-gray-900">
-                Committed $8m
+              <span className="flex items-center space-x-1 cursor-pointer hover:text-gray-900">
+                <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                <span className="text-[10px]">Committed $8m</span>
               </span>
-              <span className="cursor-pointer hover:text-gray-900">
-                Best case $7m
+              <span className="flex items-center space-x-1 cursor-pointer hover:text-gray-900">
+                <div className="w-2 h-2 rounded-full bg-purple-400"></div>
+                <span className="text-[10px]">Best case $7m</span>
               </span>
-              <span className="cursor-pointer hover:text-gray-900">
-                Qualified $3m
+              <span className="flex items-center space-x-1 cursor-pointer hover:text-gray-900">
+                <div className="w-2 h-2 rounded-full bg-orange-300"></div>
+                <span className="text-[10px]">Qualified $3m</span>
               </span>
-              <span className="cursor-pointer hover:text-gray-900">
-                Leads $75m
+              <span className="flex items-center space-x-1 cursor-pointer hover:text-gray-900">
+                <div className="w-2 h-2 rounded-full bg-gray-200"></div>
+                <span className="text-[10px]">Leads $75m</span>
               </span>
             </div>
           </div>
