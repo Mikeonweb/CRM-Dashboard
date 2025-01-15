@@ -84,6 +84,8 @@ export default function Home() {
     setModalOpen(true);
   };
 
+  const [isOpen, setIsOpen] = useState(true);
+
   return (
     <div className="h-[100vh] bg-gray-200">
       {/* HEADER */}
@@ -108,8 +110,12 @@ export default function Home() {
       {/* Container */}
       <div className="flex h-[100vh] justify-between gap-2 cursor-pointer">
         {/* right side */}
-        <div className="bg-gray-200 h-[100%] relative w-60 border-r-2 border-gray-300">
-          <SideBar />
+        <div
+          className={`transition-all duration-300 ease-in-out relative ${
+            isOpen ? "w-60" : "w-16"
+          }`}
+        >
+          <SideBar isOpen={isOpen} setIsOpen={setIsOpen} />
         </div>
 
         {/* middle */}

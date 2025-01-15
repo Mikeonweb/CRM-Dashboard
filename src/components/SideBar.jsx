@@ -20,8 +20,7 @@ import { TbBrandPagekit, TbUserQuestion } from "react-icons/tb";
 import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
 import { BsClipboardData, BsListTask } from "react-icons/bs";
 
-const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(true);
+const Sidebar = ({ isOpen, setIsOpen }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [isAgentSkillOpen, setAgentSkillOpen] = useState(false);
   const [email, setEmail] = useState("");
@@ -31,7 +30,6 @@ const Sidebar = () => {
     sales: false,
   });
 
-  // Handle window resize
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
@@ -45,7 +43,7 @@ const Sidebar = () => {
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [setIsOpen]);
 
   const getInitial = (email) => {
     return email ? email[0].toUpperCase() : "?";
@@ -109,8 +107,8 @@ const Sidebar = () => {
     <>
       <div
         className={`
-        fixed top-0 left-0 h-full bg-gray-50 border-r border-gray-200
-        transition-all duration-300 ease-in-out z-30
+        flex flex-col h-full bg-gray-50 border-r border-gray-200
+        transition-all duration-300 ease-in-out
         ${isOpen ? "w-60" : "w-16"}
         ${isMobile && !isOpen ? "-translate-x-full" : "translate-x-0"}
       `}
@@ -133,7 +131,7 @@ const Sidebar = () => {
           )}
         </div>
 
-        <div className="overflow-y-auto h-[calc(100vh-5rem)]">
+        <div className="flex-1 overflow-y-auto">
           <NavItem icon={GrHomeRounded} text="Home" />
           <NavItem
             icon={IoTimeOutline}
@@ -189,7 +187,7 @@ const Sidebar = () => {
       {/* Mobile overlay */}
       {isMobile && isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-20"
+          className="absolute inset-0 bg-black bg-opacity-50"
           onClick={() => setIsOpen(false)}
         />
       )}
