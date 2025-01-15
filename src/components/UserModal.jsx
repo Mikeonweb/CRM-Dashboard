@@ -1,13 +1,13 @@
 "use client";
 
-import React from 'react';
-import { Dialog, Transition } from '@headlessui/react';
+import React from "react";
+import { Dialog, Transition } from "@headlessui/react";
 
 /**
  * UserModal Component
  * - Displays detailed user information in a modal popup.
  * - Uses TailwindCSS for styling and HeadlessUI for accessibility features.
- * 
+ *
  * Props:
  * - isOpen: Boolean to control the modal visibility.
  * - onClose: Function to close the modal.
@@ -20,7 +20,7 @@ export default function UserModal({ isOpen, onClose, user }) {
       <Dialog as="div" className="relative z-50" onClose={onClose}>
         {/* Background overlay */}
         <div className="fixed inset-0 bg-black bg-opacity-30" />
-        
+
         {/* Modal Content */}
         <div className="fixed inset-0 overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4 text-center">
@@ -39,14 +39,20 @@ export default function UserModal({ isOpen, onClose, user }) {
                 <Dialog.Title className="text-lg font-medium leading-6 text-gray-900">
                   {user?.name}
                 </Dialog.Title>
-                
+
                 {/* Modal Content */}
                 <div className="mt-2">
-                  <p><strong>Topic:</strong> {user?.topic}</p>
-                  <p><strong>Status:</strong> {user?.status}</p>
-                  <p><strong>Created on:</strong> {user?.createdOn}</p>
+                  <p>
+                    <strong>Topic:</strong> {user?.topic}
+                  </p>
+                  <p>
+                    <strong>Status:</strong> {user?.status}
+                  </p>
+                  <p>
+                    <strong>Created on:</strong> {user?.createdOn}
+                  </p>
                 </div>
-                
+
                 {/* Close Button */}
                 <div className="mt-4">
                   <button

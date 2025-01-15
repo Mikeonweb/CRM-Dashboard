@@ -1,54 +1,18 @@
 "use client";
 
 import React, { useState } from "react";
-import { X } from "lucide-react";
 import LeadsTable from "../components/LeadsTable";
 import UserModal from "../components/UserModal";
 import Dashboard from "@/components/Dashboard";
-
+import SideBar from "@/components/SideBar";
+import LeadsHeader from "@/components/LeadsHeader";
 import { CgMenuGridO } from "react-icons/cg";
-import { FiSettings, FiMenu, FiPhoneCall } from "react-icons/fi";
-import {
-  IoAddOutline,
-  IoTimeOutline,
-  IoFilterOutline,
-  IoRefresh,
-  IoCallOutline,
-} from "react-icons/io5";
+import { FiSettings } from "react-icons/fi";
+import { IoAddOutline, IoCallOutline } from "react-icons/io5";
 import { TfiLightBulb } from "react-icons/tfi";
-import { GrHomeRounded, GrPin, GrNotes } from "react-icons/gr";
-import {
-  HiOutlineRocketLaunch,
-  HiOutlineChatBubbleLeftRight,
-} from "react-icons/hi2";
-import { GiJerusalemCross } from "react-icons/gi";
-import { SiDynatrace, SiMailboxdotorg } from "react-icons/si";
-import {
-  LuClipboardPenLine,
-  LuUserRound,
-  LuChartNoAxesCombined,
-} from "react-icons/lu";
-import { PiCardholder } from "react-icons/pi";
-import {
-  TbBrandPagekit,
-  TbUserQuestion,
-  TbLogout,
-  TbDotsVertical,
-} from "react-icons/tb";
-import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
-import {
-  MdOutlineRequestQuote,
-  MdOutlineCampaign,
-  MdKeyboardArrowDown,
-  MdEditRoad,
-  MdOutlineAvTimer,
-  MdOutlineDelete,
-  MdChatBubbleOutline,
-  MdKeyboardArrowUp,
-} from "react-icons/md";
-import { FcCollaboration } from "react-icons/fc";
-import { PiPackage } from "react-icons/pi";
-import { BsClipboardData, BsListTask, BsPlusLg } from "react-icons/bs";
+import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
+import { SiDynatrace } from "react-icons/si";
+import { MdChatBubbleOutline } from "react-icons/md";
 import { FaRegCircleUser, FaChalkboardUser, FaQuestion } from "react-icons/fa6";
 
 /**
@@ -95,17 +59,6 @@ export default function Home() {
     },
   ];
 
-  // Agent skill Email field
-  const [email, setEmail] = useState("");
-
-  const getInitial = (email) => {
-    return email ? email[0].toUpperCase() : "?";
-  };
-
-  const handleClear = () => {
-    setEmail("");
-  };
-
   const userProfiles = [
     { name: "Alice Johnson", achievement: "Top Seller", image: "/user1.jpg" },
     { name: "Bob Smith", achievement: "Exceeded Quota", image: "/user2.jpg" },
@@ -132,7 +85,7 @@ export default function Home() {
   };
 
   return (
-    <div className="h-[100%] bg-gray-200">
+    <div className="h-[100vh] bg-gray-200">
       {/* HEADER */}
       <div className="bg-blue-950 h-10 flex px-2 justify-between items-center">
         <div className="flex text-white">
@@ -153,354 +106,22 @@ export default function Home() {
       </div>
 
       {/* Container */}
-      <div className="h-[100%] flex justify-between gap-2 cursor-pointer">
+      <div className="flex h-[100vh] justify-between gap-2 cursor-pointer">
         {/* right side */}
-        <div className="bg-gray-200 h-[100%] w-60 border-r-2 border-gray-300">
-          <div className="py-1 pl-4">
-            <div className="flex justify-between">
-              <FiMenu className="mb-2" />
-
-              <p
-                className="px-4 mr-2 bg-blue-300 rounded-xl  font-semibold cursor-pointer "
-                onClick={() => setAgentSkillOpen(!isAgentSkillOpen)}
-              >
-                Agent skill
-              </p>
-            </div>
-
-            <p className="flex items-center gap-2">
-              <GrHomeRounded />
-              Home
-            </p>
-            <div className="justify-between flex items-center">
-              <p className="flex items-center gap-2">
-                <IoTimeOutline />
-                Recent
-              </p>
-              <span>
-                <MdKeyboardArrowDown />
-              </span>
-            </div>
-            <div className="justify-between flex items-center">
-              <p className="flex items-center gap-2">
-                <GrPin />
-                Pinned
-              </p>
-              <span>
-                <MdKeyboardArrowDown />
-              </span>
-            </div>
-
-            {/* Agent Skill */}
-            {/* <p
-              className="flex items-center gap-2 font-semibold cursor-pointer "
-              onClick={() => setAgentSkillOpen(!isAgentSkillOpen)}
-            >
-              Agent skill
-            </p> */}
-            {isAgentSkillOpen && (
-              <div
-                className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300"
-                onClick={() => setAgentSkillOpen(false)} // Close modal on outside click
-              >
-                {/* White parent Background Wrapper */}
-                <div className="bg-white h-[80%] w-[80%] rounded-lg flex flex-col items-center justify-center relative">
-                  {/* Header aligned top-left */}
-                  <div className="absolute top-20 left-16">
-                    <h3 className="flex items-center gap-2 font-bold text-lg">
-                      <SiDynatrace className="text-red-500" /> Agent Skills
-                    </h3>
-                  </div>
-
-                  {/* Modal Content Wrapper */}
-                  <div
-                    className="bg-white border border-gray-200 shadow-xl shadow-gray-500/10 rounded-md p-6 w-96 md:w-[90%] max-w-[90%] transform transition-transform duration-300 z-60 relative flex flex-col"
-                    style={{
-                      opacity: isAgentSkillOpen ? 1 : 0,
-                      transform: isAgentSkillOpen ? "scale(1)" : "scale(0.95)",
-                    }}
-                    onClick={(e) => e.stopPropagation()} // Prevent closing on inner click
-                  >
-                    <div className="flex justify-between">
-                      <h3 className="">
-                        Check if on-hand inventory will allow all orders to ship
-                        without delay
-                      </h3>
-                      <p>
-                        <MdKeyboardArrowUp />
-                      </p>
-                    </div>
-                    {/* Static Skills List */}
-                    <div className="flex flex-wrap gap-2 justify-start mt-4">
-                      <p>When</p>
-                      <p className="px-3 py-1 bg-blue-200 border border-gray-300 rounded-full text-sm text-blue-700">
-                        any vendor
-                      </p>
-                      <p>sends an email with changes to</p>
-                      <p className="px-3 py-1 bg-blue-200 border border-gray-300 rounded-full text-sm text-blue-700">
-                        Confirmed purchase orders
-                      </p>
-                      <p>, check if the resulting</p>
-                      <p className="px-3 py-1 bg-blue-200 border border-gray-300 rounded-full text-sm text-blue-700">
-                        on-hand inventory
-                      </p>
-                      <p>will allow</p>
-                      <p className="px-3 py-1 bg-blue-200 border border-gray-300 rounded-full text-sm text-blue-700">
-                        all sales orders
-                      </p>
-                      <p>to</p>
-                      <p className="px-3 py-1 bg-blue-200 border border-gray-300 rounded-full text-sm text-blue-700">
-                        ship without delay
-                      </p>
-                      <p>.if so,</p>
-                      <p className="px-3 py-1 bg-blue-200 border border-gray-300 rounded-full text-sm text-blue-700">
-                        update the purchase order
-                      </p>
-                      <p>to reflect the change.</p>
-                    </div>
-                  </div>
-
-                  {/* Modal Content Wrapper */}
-                  <div
-                    className="bg-white mt-6 p-6 w-96 md:w-[90%] max-w-[90%] transform transition-transform duration-300 z-60 relative flex flex-col"
-                    style={{
-                      opacity: isAgentSkillOpen ? 1 : 0,
-                      transform: isAgentSkillOpen ? "scale(1)" : "scale(0.95)",
-                    }}
-                    onClick={(e) => e.stopPropagation()} // Prevent closing on inner click
-                  >
-                    <div className="">
-                      <h3 className="flex items-center gap-2 font-bold text-lg">
-                        <SiMailboxdotorg className="text-blue-500" /> Enable
-                        email access
-                      </h3>
-                      <p className="py-2">
-                        Allow the agent to access email inboxes to read mail
-                        from known vendors
-                      </p>
-                    </div>
-                    {/* Static Skills List */}
-                    <div className="flex w-full gap-4">
-                      <div className="relative flex items-center flex-1">
-                        {/* Initial Letter Avatar */}
-                        <div className="absolute left-3 flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 text-blue-600 text-sm font-medium">
-                          {getInitial(email)}
-                        </div>
-
-                        {/* Email Input */}
-                        <input
-                          type="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder="Enter your email"
-                          className="w-full pl-12 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-                        />
-
-                        {/* Clear Button */}
-                        {email && (
-                          <button
-                            onClick={handleClear}
-                            className="absolute right-3 p-1 rounded-full hover:bg-gray-100"
-                            aria-label="Clear email"
-                          >
-                            <X size={16} className="text-gray-500" />
-                          </button>
-                        )}
-                      </div>
-                      <button className="bg-blue-700 px-4 py-2 rounded text-white hover:bg-blue-800 whitespace-nowrap">
-                        Allow Access
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Close button at the bottom-right */}
-                  <button
-                    className="absolute bottom-4 right-4 px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-                    onClick={() => setAgentSkillOpen(false)}
-                  >
-                    Close
-                  </button>
-                  <button
-                    className="absolute bottom-4 right-32 px-6 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
-                    onClick={() => setAgentSkillOpen(false)}
-                  >
-                    Activate
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className="py-2 pl-4">
-            <p className="font-bold">My Work</p>
-            <p className="flex items-center gap-2">
-              <HiOutlineRocketLaunch />
-              Sales Accelerator
-            </p>
-            <p className="flex items-center gap-2">
-              <GiJerusalemCross />
-              Dashboards
-            </p>
-            <p className="flex items-center gap-2">
-              <LuClipboardPenLine />
-              Activities
-            </p>
-          </div>
-
-          <div className="py-2 pl-4">
-            <p className="font-bold">Customers</p>
-            <p className="flex items-center gap-2">
-              <PiCardholder />
-              Accounts
-            </p>
-            <p className="flex items-center gap-2">
-              <LuUserRound />
-              Contacts
-            </p>
-          </div>
-
-          <div className="py-2 ">
-            <p className="font-bold pl-4 ">Sales</p>
-            <div className="flex items-center bg-white">
-              <div className="h-5 w-1 ml-1 bg-blue-800"></div>
-              <div className="flex items-center gap-2 pl-1">
-                <span className="">
-                  <FiPhoneCall />
-                </span>
-                <span className="">Leads</span>
-              </div>
-            </div>
-            <p className="flex pl-4 items-center gap-2">
-              <TbBrandPagekit />
-              Opportunities
-            </p>
-            <p className="flex pl-4 items-center gap-2">
-              <TbUserQuestion />
-              Competitors
-            </p>
-          </div>
-
-          <div className="py-2 pl-4">
-            <p className="font-bold">Collateral</p>
-            <p className="flex items-center gap-2">
-              <MdOutlineRequestQuote />
-              Quotes
-            </p>
-            <p className="flex items-center gap-2">
-              <GrNotes />
-              Orders
-            </p>
-            <p className="flex items-center gap-2">
-              <LiaFileInvoiceDollarSolid />
-              Invoices
-            </p>
-            <p className="flex items-center gap-2">
-              <PiPackage />
-              Products
-            </p>
-            <p className="flex items-center gap-2">
-              <BsClipboardData />
-              Sales Literature
-            </p>
-          </div>
-
-          <div className="py-2 pl-4">
-            <p className="font-bold">Marketing</p>
-            <p className="flex items-center gap-2">
-              <BsListTask />
-              Marketing List
-            </p>
-            <p className="flex items-center gap-2">
-              <MdOutlineCampaign />
-              Quick Campaigns
-            </p>
-          </div>
-
-          <div className="py-2">
-            <div className="border-b-2 border-b-gray-300 mb-2">
-              <p className="font-bold pl-4">Perfomance</p>
-            </div>
-            <div className="justify-between flex items-center pl-4 ">
-              <p className="flex items-center gap-2">
-                <span className="bg-purple-900 text-white px-2 rounded">S</span>
-                Sales
-              </p>
-              <span>
-                <MdKeyboardArrowDown />
-              </span>
-            </div>
-          </div>
+        <div className="bg-gray-200 h-[100%] relative w-60 border-r-2 border-gray-300">
+          <SideBar />
         </div>
 
         {/* middle */}
         <div className="flex-1">
           {/* Page Title */}
-          <div className="my-4 p-2 flex justify-between items-center bg-white rounded">
-            <div className="flex items-center">
-              <h3 className="font-semibold text-[12px]">My Open Leads</h3>
-              <MdKeyboardArrowDown />
-            </div>
-
-            <div className="flex gap-2">
-              <div className="flex gap-3">
-                <p className="flex items-center gap-1">
-                  <LuChartNoAxesCombined />
-                  Show chart
-                </p>
-                <p className="flex items-center gap-1">
-                  <BsListTask />
-                  Focused view
-                </p>
-                <p className="flex items-center gap-1">
-                  <BsPlusLg />
-                  New
-                </p>
-                <p className="flex items-center gap-1">
-                  <IoRefresh />
-                  Refresh
-                </p>
-                <p className="flex items-center gap-1">
-                  <FcCollaboration />
-                  Collaborate
-                </p>
-                <p className="flex items-center gap-1">
-                  <MdOutlineDelete />
-                  Delete
-                </p>
-              </div>
-              <div className="flex items-center">
-                <div className="">
-                  <MdKeyboardArrowDown />
-                </div>
-                <div className="">
-                  <TbDotsVertical className="ml-2" />
-                </div>
-              </div>
-              <div className="flex items-center gap-2 p-1 border-2 rounded">
-                <MdOutlineAvTimer />
-                <p>Smart data</p>
-              </div>
-              <div className="flex items-center gap-2 p-1 border-2 rounded">
-                <IoFilterOutline />
-                <p>Edit filters</p>
-              </div>
-              <div className="flex items-center gap-2 p-1 border-2 rounded">
-                <MdEditRoad />
-                <p>Edit columns</p>
-              </div>
-              <div className="flex items-center text-white bg-blue-700 p-2 rounded">
-                <div className="border-r-2 border-white">
-                  <TbLogout className="mr-1" />
-                </div>
-                <div className="">
-                  <MdKeyboardArrowDown />
-                </div>
-              </div>
-            </div>
+          <div className="my-2 p-2 flex justify-between items-center bg-white rounded">
+            <LeadsHeader />
+            {/* Rest of your page content */}
           </div>
 
           {/* insight panel */}
-          <div className="flex items-center justify-center p-[0.10rem] rounded-3xl bg-gradient-to-r from-blue-400 to-purple-400">
+          <div className="flex items-center justify-center p-[0.10rem] rounded-3xl bg-gradient-to-r from-blue-400 to-purple-400 w-full bg-white">
             <Dashboard />
           </div>
 

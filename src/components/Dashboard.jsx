@@ -2,7 +2,19 @@
 
 // components/InsightPanel.js
 import React, { useState } from "react";
-import { ArrowUpRight } from "lucide-react";
+import {
+  ArrowUpRight,
+  Pencil,
+  SendHorizontal,
+  ChevronDown,
+  CircleCheckBig,
+  Medal,
+  ArrowsUpFromLine,
+  ThumbsDown,
+  ThumbsUp,
+} from "lucide-react";
+import { TfiEmail } from "react-icons/tfi";
+import { BsStars, BsFillShieldLockFill } from "react-icons/bs";
 import {
   Dialog,
   DialogContent,
@@ -87,15 +99,15 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="w-full max-w-7xl p-4 bg-white rounded-3xl">
+    <div className="w-full  p-4 bg-white rounded-3xl sm:px-6 lg:px-8 ">
       <div className="space-y-6">
         {/* Header Section */}
-        <div className="userprogress flex items-center justify-between space-x-4">
+        <div className="flex flex-col lg:flex-row gap-6 lg:items-center lg:justify-between">
           {/* User Profile Section */}
-          <div className="flex items-center space-x-2 flex-1">
-            <div className="w-6 h-6 bg-gradient-to-r from-blue-400 to-purple-400 rounded-lg"></div>
-            <div className="text-sm">
-              <span className="text-gray-700">Hi Mona, </span>
+          <div className="flex items-start space-x-3 flex-shrink-0">
+            <div className="w-6 h-6 bg-gradient-to-r from-blue-400 to-purple-400 rounded-lg mt-1"></div>
+            <div className="text-sm sm:text-base">
+              <span className="text-gray-700 block sm:inline">Hi Mona, </span>
               <span>
                 {progress}% of goal achieved and rest can be achieved by
                 focusing on 20 top leads.
@@ -103,13 +115,13 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Progress Bar and Details Section */}
-          <div className="flex flex-col justify-between items-start flex-1">
+          {/* Progress Section */}
+          <div className="w-full lg:w-auto flex-1 space-y-3">
             {/* Progress Details */}
-            <div className="flex items-center mt-2 pl-2 space-x-3 text-xs text-gray-600 justify-between w-full">
+            <div className="flex flex-col sm:flex-row sm:items-center text-xs sm:text-sm text-gray-600 gap-2 sm:gap-4">
               <div>1 month until Q4 ends</div>
-              <div className="flex items-center gap-6 space-x-1">
-                <span className="font-medium relative gap-2">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6">
+                <span className="font-medium relative">
                   <span className="absolute text-xl left-[-.30em] bottom-[-0.50em] z-10">
                     |
                   </span>
@@ -120,61 +132,60 @@ const Dashboard = () => {
             </div>
 
             {/* Progress Bar */}
-            <div className="progressbar relative flex w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
+            <div className="relative h-1.5 bg-gray-200 rounded-full overflow-hidden">
               <div
                 style={{ width: "10%" }}
-                className="h-full bg-green-500"
+                className="absolute h-full bg-green-500"
               ></div>
-              <div style={{ width: "8%" }} className="h-full bg-blue-500"></div>
+              <div
+                style={{ width: "8%" }}
+                className="absolute h-full bg-blue-500 left-[10%]"
+              ></div>
               <div
                 style={{ width: "7%" }}
-                className="h-full bg-purple-400"
+                className="absolute h-full bg-purple-400 left-[18%]"
               ></div>
               <div
                 style={{ width: "10%" }}
-                className="h-full bg-orange-300"
+                className="absolute h-full bg-orange-300 left-[25%]"
               ></div>
               <div
                 style={{ width: "65%" }}
-                className="h-full bg-gray-200"
+                className="absolute h-full bg-gray-200 left-[35%]"
               ></div>
             </div>
 
             {/* Legend */}
-            <div className="legend pl-2 flex flex-wrap justify-end text-xs space-x-2 mt-1 text-gray-600">
-              <span className="flex items-center space-x-1 cursor-pointer hover:text-gray-900">
-                <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                <span className="text-[10px]">Won $18m</span>
-              </span>
-              <span className="flex items-center space-x-1 cursor-pointer hover:text-gray-900">
-                <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                <span className="text-[10px]">Committed $8m</span>
-              </span>
-              <span className="flex items-center space-x-1 cursor-pointer hover:text-gray-900">
-                <div className="w-2 h-2 rounded-full bg-purple-400"></div>
-                <span className="text-[10px]">Best case $7m</span>
-              </span>
-              <span className="flex items-center space-x-1 cursor-pointer hover:text-gray-900">
-                <div className="w-2 h-2 rounded-full bg-orange-300"></div>
-                <span className="text-[10px]">Qualified $3m</span>
-              </span>
-              <span className="flex items-center space-x-1 cursor-pointer hover:text-gray-900">
-                <div className="w-2 h-2 rounded-full bg-gray-200"></div>
-                <span className="text-[10px]">Leads $75m</span>
-              </span>
+            <div className="flex flex-wrap gap-3 text-xs text-gray-600">
+              {[
+                { color: "bg-green-500", text: "Won $18m" },
+                { color: "bg-blue-500", text: "Committed $8m" },
+                { color: "bg-purple-400", text: "Best case $7m" },
+                { color: "bg-orange-300", text: "Qualified $3m" },
+                { color: "bg-gray-200", text: "Leads $75m" },
+              ].map((item, index) => (
+                <span
+                  key={index}
+                  className="flex items-center space-x-1 cursor-pointer hover:text-gray-900"
+                >
+                  <div className={`w-2 h-2 rounded-full ${item.color}`}></div>
+                  <span className="text-[10px] sm:text-xs">{item.text}</span>
+                </span>
+              ))}
             </div>
           </div>
         </div>
 
-        <div className="flex gap-8 pb-6">
-          {/* Main Content */}
-          <div className="w-[70%] text-sm">
-            <p className="text-gray-700 mb-4">
+        {/* Main Content Area */}
+        <div className="flex flex-col lg:flex-row gap-8 pb-6">
+          {/* Leads Section */}
+          <div className="w-full lg:w-[70%]">
+            <p className="text-sm sm:text-base text-gray-700 mb-4">
               Copilot has pinpointed 20 key leads that show strong purchase
               intent and are actively engaging. These leads need your focus.
             </p>
 
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="grid sm:grid-cols-2 gap-4">
               {leads.map((lead) => (
                 <div
                   key={lead.id}
@@ -183,30 +194,30 @@ const Dashboard = () => {
                 >
                   <div className="flex justify-between items-start">
                     <div className="flex space-x-3">
-                      <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
-                      <div>
-                        <h3 className="font-medium">{lead.name}</h3>
-                        <p className="text-sm text-gray-500">
+                      <div className="w-10 h-10 flex-shrink-0 bg-gray-300 rounded-full"></div>
+                      <div className="min-w-0">
+                        <h3 className="font-medium truncate">{lead.name}</h3>
+                        <p className="text-sm text-gray-500 truncate">
                           {lead.title} • {lead.company}
                         </p>
                       </div>
                     </div>
-                    <ArrowUpRight className="w-5 h-5 text-blue-600" />
+                    <ArrowUpRight className="w-5 h-5 text-blue-600 flex-shrink-0" />
                   </div>
 
                   <div className="mt-4 p-4 bg-blue-100 rounded-lg">
-                    <h4 className="font-medium">{lead.action}</h4>
-                    <p className="text-sm text-gray-600 mt-1">
+                    <h4 className="font-medium truncate">{lead.action}</h4>
+                    <p className="text-sm text-gray-600 mt-1 line-clamp-2">
                       {lead.description}
                     </p>
                   </div>
 
-                  <div className="mt-3 flex space-x-3">
+                  <div className="mt-3 flex flex-wrap gap-2">
                     {lead.tags.map((tag, index) => (
-                      <React.Fragment key={index}>
-                        {index > 0 && <span>•</span>}
-                        <span className="text-sm text-gray-600">{tag}</span>
-                      </React.Fragment>
+                      <span key={index} className="text-sm text-gray-600">
+                        {index > 0 && <span className="mx-1">•</span>}
+                        {tag}
+                      </span>
                     ))}
                   </div>
                 </div>
@@ -215,80 +226,229 @@ const Dashboard = () => {
           </div>
 
           {/* Side Activities */}
-          <div className="w-[30%] text-sm border border-l-gray-200 border-r-0 border-t-0 border-b-0 pl-4">
-            <h3 className="font-medium text-sm mb-4">Other key activities</h3>
+          <div className="w-full lg:w-[30%] lg:border-l lg:pl-4">
+            <h3 className="font-medium text-sm sm:text-base mb-4">
+              Other key activities
+            </h3>
             <div className="space-y-4">
               {activities.map((activity) => (
                 <div
                   key={activity.id}
                   className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors"
-                  onClick={() => handleLeadClick(activity)}
                 >
-                  <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 bg-gray-200 rounded-lg"></div>
-                    <div>
-                      <h4 className="font-medium">{activity.name}</h4>
-                      <p className="text-sm text-gray-500">
+                  <div className="flex items-center space-x-3 min-w-0">
+                    <div className="w-8 h-8 flex-shrink-0 bg-gray-200 rounded-lg"></div>
+                    <div className="min-w-0">
+                      <h4 className="font-medium truncate">{activity.name}</h4>
+                      <p className="text-sm text-gray-500 truncate">
                         {activity.company} • {activity.value} •{" "}
                         {activity.timeframe}
                       </p>
                     </div>
                   </div>
-                  <ArrowUpRight className="w-5 h-5 text-blue-600" />
+                  <ArrowUpRight className="w-5 h-5 text-blue-600 flex-shrink-0 ml-2" />
                 </div>
               ))}
             </div>
 
-            <p className="text-blue-600 pt-12">show all key activities</p>
+            <p className="text-blue-600 pt-12 cursor-pointer hover:underline">
+              show all key activities
+            </p>
           </div>
         </div>
       </div>
 
       {/* Details Modal */}
       <Dialog open={isDetailsModalOpen} onOpenChange={setIsDetailsModalOpen}>
-        <DialogContent className="sm:max-w-[500px]">
-          <DialogHeader>
-            <DialogTitle>
-              {selectedLead?.name || selectedLead?.company}
-            </DialogTitle>
-          </DialogHeader>
+        <DialogContent className="sm:max-w-[85%] md:max-w-[75%] lg:max-w-[65%] max-h-[90vh] p-[0.18rem] rounded-lg border-none bg-gradient-to-r from-blue-400 to-purple-400">
+          <div className="w-full h-full rounded-md p-4 bg-slate-50">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <TfiEmail className="text-2xl" />
+                <p>Engage with</p>
+                {selectedLead?.name || selectedLead?.company}
+              </DialogTitle>
+            </DialogHeader>
 
-          <div className="mt-4">
-            {selectedLead && (
-              <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <h4 className="text-sm font-medium text-gray-500">
-                      Pipeline Value
-                    </h4>
-                    <p className="mt-1">{selectedLead.details?.pipeline}</p>
+            <div className="mt-4 overflow-y-auto max-h-[calc(90vh-8rem)]">
+              <div className="child1 space-y-4">
+                {leads.map((lead) => (
+                  <div
+                    key={lead.id}
+                    className="p-4 border rounded-xl hover:bg-gray-100 transition-colors cursor-pointer"
+                    onClick={() => handleLeadClick(lead)}
+                  >
+                    <div className="flex justify-between items-start">
+                      <div className="flex space-x-3">
+                        <div className="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0"></div>
+                        <div>
+                          <h3 className="font-medium">{lead.name}</h3>
+                          <p className="text-sm text-gray-500">
+                            {lead.title} • {lead.company}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="text-sm font-medium text-gray-500">
-                      Last Contact
-                    </h4>
-                    <p className="mt-1">{selectedLead.details?.lastContact}</p>
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-medium text-gray-500">
-                      Next Steps
-                    </h4>
-                    <p className="mt-1">{selectedLead.details?.nextSteps}</p>
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-medium text-gray-500">
-                      Status
-                    </h4>
-                    <p className="mt-1">{selectedLead.details?.status}</p>
-                  </div>
-                </div>
+                ))}
+              </div>
 
-                <div>
-                  <h4 className="text-sm font-medium text-gray-500">Notes</h4>
-                  <p className="mt-1 text-sm">{selectedLead.details?.notes}</p>
+              <div className="child2 bg-gradient-to-r from-blue-100 to-purple-100 rounded-xl border-none mt-4">
+                <div className="block md:flex justify-between items-center p-4 rounded-xl hover:bg-gray-100 transition-colors">
+                  <div className="flex items-center gap-2 md:pb-0 pb-4">
+                    <BsStars className="text-[2rem] flex-shrink-0" />
+                    <p className="md:text-[0.70rem] bg-gradient-to-r from-blue-400 to-purple-400 text-transparent bg-clip-text">
+                      Jane maybe interested in upgrading espresso machines for
+                      her in-store coffee shops.
+                    </p>
+                  </div>
+                  <div className="flex justify-between gap-2 text-sm">
+                    <button className="flex items-center bg-white gap-2 border border-gray-400 rounded-xl p-2">
+                      <Pencil />
+                      Edit
+                    </button>
+                    <button className="flex items-center text-white gap-2 rounded-xl p-2 bg-gradient-to-r from-blue-700 to-purple-600">
+                      <SendHorizontal />
+                      Approve and send
+                    </button>
+                  </div>
                 </div>
               </div>
-            )}
+
+              <div className="child3">
+                <div className="flex gap-4 p-4 text-gray-500 mt-4 border rounded-xl hover:bg-gray-100 transition-colors cursor-pointer">
+                  <p>Engage</p>
+                  <p>Research</p>
+                </div>
+              </div>
+
+              <div className="child4">
+                <div className="p-4 text-gray-500 mt-4 border rounded-xl hover:bg-gray-100 transition-colors">
+                  <div className="p-4 w-full rounded-xl bg-gradient-to-r from-blue-100 to-purple-100">
+                    <h3 className="bg-gradient-to-r from-blue-700 to-purple-600 text-transparent bg-clip-text">
+                      Why I picked this lead
+                    </h3>
+                    <ul className="ml-8 list-disc">
+                      <li>
+                        Jane is a
+                        <span className="text-black mx-1">
+                          key decision maker
+                        </span>
+                        and was browsing
+                        <span className="text-black mx-1">
+                          'espresso machines'
+                        </span>{" "}
+                        on first Coffe's website
+                      </li>
+                      <li>
+                        Multiple people at her company have reported 'slowness'
+                        during
+                        <span className="text-black mx-1">
+                          service requests
+                        </span>
+                      </li>
+                      <li>
+                        Northwind Traders currently see
+                        <span className="text-black mx-1">
+                          $200M in revenue
+                        </span>{" "}
+                        from their in-store coffee shops.
+                      </li>
+                    </ul>
+
+                    <div className="flex flex-wrap gap-4 mt-4">
+                      <div className="flex-1 min-w-[250px] h-20 bg-white rounded-xl shadow-md flex items-center justify-center gap-2">
+                        <CircleCheckBig className="text-[2rem]" />
+                        <span>
+                          <p className="text-[.60rem]">Decision maker</p>
+                          <h3 className="text-[.90rem] bg-gradient-to-r from-blue-700 to-purple-600 text-transparent bg-clip-text">
+                            Yes
+                          </h3>
+                        </span>
+                      </div>
+                      <div className="flex-1 min-w-[250px] h-20 bg-white rounded-xl shadow-md flex items-center justify-center gap-2">
+                        <Medal className="text-[2rem]" />
+                        <span>
+                          <p className="text-[.60rem]">Potential deal value</p>
+                          <h3 className="text-[.90rem] bg-gradient-to-r from-blue-700 to-purple-600 text-transparent bg-clip-text">
+                            $1M
+                          </h3>
+                        </span>
+                      </div>
+                      <div className="flex-1 min-w-[250px] h-20 bg-white rounded-xl shadow-md flex items-center justify-center gap-2">
+                        <ArrowsUpFromLine className="text-[2rem]" />
+                        <span>
+                          <p className="text-[.60rem]">Intent</p>
+                          <h3 className="text-[.90rem] bg-gradient-to-r from-blue-700 to-purple-600 text-transparent bg-clip-text">
+                            High
+                          </h3>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mt-4">
+                    <div className="flex flex-wrap gap-2">
+                      <span className="bg-gray-200 py-1 px-2 rounded flex items-center text-sm">
+                        <BsFillShieldLockFill className="text-yellow-500" />
+                      </span>
+                      <span className="bg-gray-200 py-1 px-2 rounded text-sm gap-2 flex">
+                        <p>1</p>
+                        <p>D365 Sales</p>
+                      </span>
+                      <span className="bg-gray-200 py-1 px-2 rounded text-sm">
+                        +2
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-center gap-2">
+                      <p className="bg-gray-200 py-1 px-2 rounded text-sm">
+                        Ai generated content maybe incorrect
+                      </p>
+                      <ThumbsUp />
+                      <ThumbsDown />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="child5">
+                <div className="gap-4 p-4 mt-4 border rounded-xl hover:bg-gray-100 transition-colors cursor-pointer">
+                  <div className="flex justify-between items-center">
+                    <h3>About Jane</h3>
+                    <ChevronDown className="text-gray-500" />
+                  </div>
+                  <p className="text-gray-500 mt-2">
+                    Jane Reyes, the Chief Operating Officer of Northwind
+                    Traders, is a dynamic leader with a proven track record in
+                    optimizing operations and enhancing customer experiences.
+                    Under her guidance, Northwind Traders' in-store coffee shops
+                    have flourished, becoming a hallmark of quality and
+                    innovation. Jane's commitment to excellence makes her an
+                    ideal partner for First Coffee. She is always seekig
+                    top-tier equipment to elevate her coffee shops offerings
+                  </p>
+                </div>
+              </div>
+
+              <div className="child6 flex flex-col sm:flex-row justify-between items-center mt-8 gap-4">
+                <div className="flex gap-4">
+                  <p className="text-gray-500">Show 1 0f 9</p>
+                  <p className="text-gray-500">|</p>
+                  <p className="text-blue-600 cursor-pointer">show all</p>
+                </div>
+                <div className="flex gap-1">
+                  <p className="h-1 w-10 bg-blue-800 rounded-3xl"></p>
+                  <p className="h-1 w-1 bg-gray-500 rounded-3xl"></p>
+                  <p className="h-1 w-1 bg-gray-500 rounded-3xl"></p>
+                  <p className="h-1 w-1 bg-gray-500 rounded-3xl"></p>
+                  <p className="h-1 w-1 bg-gray-500 rounded-3xl"></p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <ThumbsUp />
+                  <ThumbsDown />
+                </div>
+              </div>
+            </div>
           </div>
         </DialogContent>
       </Dialog>
