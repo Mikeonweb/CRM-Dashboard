@@ -15,23 +15,13 @@ import { SiDynatrace } from "react-icons/si";
 import { MdChatBubbleOutline } from "react-icons/md";
 import { FaRegCircleUser, FaChalkboardUser, FaQuestion } from "react-icons/fa6";
 
-/**
- * Home Page
- * - Displays a table of leads with dynamic user popup modal.
- * - Data is mocked for simplicity.
- */
 export default function Home() {
-  // State for storing the selected user
   const [selectedUser, setSelectedUser] = useState(null);
-  // State to control modal visibility
   const [isModalOpen, setModalOpen] = useState(false);
-  // State to control agent skill toggle
   const [isAgentSkillOpen, setAgentSkillOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  /**
-   * Mock Leads Data
-   * - Replace this with data fetched from an API or database.
-   */
   const leads = [
     {
       name: "Winford Asher",
@@ -62,95 +52,97 @@ export default function Home() {
   const userProfiles = [
     { name: "Alice Johnson", achievement: "Top Seller", image: "/user1.jpg" },
     { name: "Bob Smith", achievement: "Exceeded Quota", image: "/user2.jpg" },
-    {
-      name: "Charlie Brown",
-      achievement: "Client Favorite",
-      image: "/user3.jpg",
-    },
-    {
-      name: "Diana Prince",
-      achievement: "Highest Revenue",
-      image: "/user4.jpg",
-    },
+    { name: "Charlie Brown", achievement: "Client Favorite", image: "/user3.jpg" },
+    { name: "Diana Prince", achievement: "Highest Revenue", image: "/user4.jpg" },
     { name: "Ethan Hunt", achievement: "Fast Closer", image: "/user5.jpg" },
   ];
 
-  /**
-   * Handle User Row Click
-   * - Opens the modal and sets the selected user.
-   */
   const handleUserClick = (user) => {
     setSelectedUser(user);
     setModalOpen(true);
   };
 
-  const [isOpen, setIsOpen] = useState(true);
-
   return (
-    <div className="h-[100vh] bg-gray-200">
-      {/* HEADER */}
-      <div className="bg-blue-950 h-10 flex px-2 justify-between items-center">
-        <div className="flex text-white">
-          <CgMenuGridO className="text-white text-xl " />
-          <p className="ml-4">Dynamics 365</p>
-          <p className="ml-4">|</p>
-          <p className="ml-4">Sales hub</p>
+    <div className="min-h-screen max-w-full bg-gray-200 overflow-x-hidden">
+      {/* Header */}
+      <div className="bg-blue-950 min-h-[2.5rem] flex px-2 justify-between items-center w-full">
+        {/* Left header section */}
+        <div className="flex text-white items-center overflow-hidden">
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden flex-shrink-0 mr-2"
+          >
+            <CgMenuGridO className="text-xl" />
+          </button>
+          <CgMenuGridO className="text-xl hidden md:block flex-shrink-0" />
+          <p className="ml-2 md:ml-4 truncate text-sm md:text-base">Dynamics 365</p>
+          <p className="mx-2 hidden lg:block">|</p>
+          <p className="hidden lg:block truncate">Sales hub</p>
         </div>
 
-        <div className="flex text-white">
-          <TfiLightBulb className="ml-4" />
-          <IoAddOutline className="ml-4" />
-          <FiSettings className="ml-4" />
-          <FaQuestion className="ml-4" />
-          <FaChalkboardUser className="ml-4" />
-          <FaRegCircleUser className="ml-4" />
+        {/* Right header section */}
+        <div className="flex text-white items-center gap-2 md:gap-4">
+          <TfiLightBulb className="hidden sm:block" />
+          <IoAddOutline className="text-lg" />
+          <FiSettings className="hidden sm:block" />
+          <FaQuestion className="hidden sm:block" />
+          <FaChalkboardUser className="hidden sm:block" />
+          <FaRegCircleUser className="text-lg" />
         </div>
       </div>
 
-      {/* Container */}
-      <div className="flex h-[100vh] justify-between gap-2 cursor-pointer">
-        {/* right side */}
+      {/* Main Container */}
+      <div className="flex min-h-[calc(100vh-2.5rem)] relative">
+        {/* Sidebar - Mobile */}
+        {isMobileMenuOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 md:hidden">
+            <div className="w-64 bg-white h-full animate-slide-in">
+              <SideBar isOpen={true} setIsOpen={() => setIsMobileMenuOpen(false)} />
+            </div>
+          </div>
+        )}
+
+        {/* Sidebar - Desktop */}
         <div
-          className={`transition-all duration-300 ease-in-out relative ${
+          className={`hidden md:block transition-all duration-300 ease-in-out flex-shrink-0 ${
             isOpen ? "w-60" : "w-16"
           }`}
         >
           <SideBar isOpen={isOpen} setIsOpen={setIsOpen} />
         </div>
 
-        {/* middle */}
-        <div className="flex-1">
+        {/* Main Content */}
+        <div className="flex-1 p-2 md:p-4 overflow-x-hidden pb-16 sm:pb-4">
           {/* Page Title */}
-          <div className="my-2 p-2 flex justify-between items-center bg-white rounded">
+          <div className="mb-4 p-2 bg-white rounded">
             <LeadsHeader />
-            {/* Rest of your page content */}
           </div>
 
-          {/* insight panel */}
-          <div className="flex items-center justify-center p-[0.10rem] rounded-3xl bg-gradient-to-r from-blue-400 to-purple-400 w-full bg-white">
-            <Dashboard />
+          {/* Insight Panel */}
+          <div className="mb-4 w-full">
+            <div className="p-[0.10rem] rounded-3xl bg-gradient-to-r from-blue-400 to-purple-400">
+              <Dashboard />
+            </div>
           </div>
 
-          <div>
-            <div className="my-2">
-              <div className="flex items-center w-[28%] rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-600">
-                <input
-                  type="text"
-                  placeholder="Sort, filter and search with Copilot"
-                  className="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6"
-                />
-                <div className="grid shrink-0 grid-cols-1 focus-within:relative">
-                  <SiDynatrace
-                    aria-hidden="true"
-                    className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                  />
-                </div>
-              </div>
+          {/* Search Bar */}
+          <div className="mb-4 w-full">
+            <div className="flex items-center w-full sm:w-[28%] rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300">
+              <input
+                type="text"
+                placeholder="Search"
+                className="block w-full py-1.5 pl-1 pr-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none"
+              />
+              <SiDynatrace className="flex-shrink-0 mr-2 w-4 h-4 text-gray-500" />
             </div>
           </div>
 
           {/* Leads Table */}
-          <LeadsTable leads={leads} onUserClick={handleUserClick} />
+          <div className="w-full overflow-x-auto">
+            <div className="min-w-full">
+              <LeadsTable leads={leads} onUserClick={handleUserClick} />
+            </div>
+          </div>
 
           {/* User Modal */}
           <UserModal
@@ -160,12 +152,20 @@ export default function Home() {
           />
         </div>
 
-        {/* left side */}
-        <div className=" bg-slate-100  w-10 py-2 px-3">
+        {/* Right Sidebar */}
+        <div className="hidden sm:flex flex-col bg-slate-100 w-10 py-2 px-3 flex-shrink-0">
           <SiDynatrace className="mb-6" />
           <HiOutlineChatBubbleLeftRight className="mb-6" />
           <IoCallOutline className="mb-6" />
           <MdChatBubbleOutline />
+        </div>
+
+        {/* Mobile Bottom Navigation */}
+        <div className="fixed bottom-0 left-0 right-0 bg-slate-100 flex justify-around items-center h-14 sm:hidden z-40">
+          <SiDynatrace className="text-lg" />
+          <HiOutlineChatBubbleLeftRight className="text-lg" />
+          <IoCallOutline className="text-lg" />
+          <MdChatBubbleOutline className="text-lg" />
         </div>
       </div>
     </div>
