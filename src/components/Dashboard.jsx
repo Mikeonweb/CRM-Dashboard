@@ -1,6 +1,6 @@
 "use client";
 
-// components/InsightPanel.js
+
 import React, { useState } from "react";
 import {
   ArrowUpRight,
@@ -185,7 +185,7 @@ const Dashboard = () => {
               intent and are actively engaging. These leads need your focus.
             </p>
 
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {leads.map((lead) => (
                 <div
                   key={lead.id}
@@ -195,7 +195,7 @@ const Dashboard = () => {
                   <div className="flex justify-between items-start">
                     <div className="flex space-x-3">
                       <div className="w-10 h-10 flex-shrink-0 bg-gray-300 rounded-full"></div>
-                      <div className="min-w-0">
+                      <div className="min-w-0 flex-1">
                         <h3 className="font-medium truncate">{lead.name}</h3>
                         <p className="text-sm text-gray-500 truncate">
                           {lead.title} • {lead.company}

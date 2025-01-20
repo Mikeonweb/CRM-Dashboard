@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import LeadsTable from "../components/LeadsTable";
 import UserModal from "../components/UserModal";
 import Dashboard from "@/components/Dashboard";
@@ -19,8 +19,32 @@ export default function Home() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
   const [isAgentSkillOpen, setAgentSkillOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(true);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(true);
+
+  // Handle window resize and set initial state
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setIsOpen(true);
+      } else {
+        setIsOpen(false);
+      }
+      // Close mobile menu when screen size changes
+      if (window.innerWidth >= 768) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const toggleMobileMenu = (e) => {
+    e.stopPropagation(); // Stop event propagation
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
   const leads = [
     {
@@ -49,33 +73,32 @@ export default function Home() {
     },
   ];
 
-  const userProfiles = [
-    { name: "Alice Johnson", achievement: "Top Seller", image: "/user1.jpg" },
-    { name: "Bob Smith", achievement: "Exceeded Quota", image: "/user2.jpg" },
-    { name: "Charlie Brown", achievement: "Client Favorite", image: "/user3.jpg" },
-    { name: "Diana Prince", achievement: "Highest Revenue", image: "/user4.jpg" },
-    { name: "Ethan Hunt", achievement: "Fast Closer", image: "/user5.jpg" },
-  ];
-
   const handleUserClick = (user) => {
     setSelectedUser(user);
     setModalOpen(true);
   };
 
   return (
-    <div className="min-h-screen max-w-full bg-gray-200 overflow-x-hidden">
+    <div className="h-screen flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="bg-blue-950 min-h-[2.5rem] flex px-2 justify-between items-center w-full">
+      <div className="bg-blue-950 h-10 flex px-2 justify-between items-center flex-shrink-0 relative z-50">
         {/* Left header section */}
         <div className="flex text-white items-center overflow-hidden">
           <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden flex-shrink-0 mr-2"
+            onClick={toggleMobileMenu}
+            className="md:hidden flex-shrink-0 mr-2 p-1 hover:bg-blue-900 rounded-lg transition-colors"
           >
             <CgMenuGridO className="text-xl" />
           </button>
-          <CgMenuGridO className="text-xl hidden md:block flex-shrink-0" />
-          <p className="ml-2 md:ml-4 truncate text-sm md:text-base">Dynamics 365</p>
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="hidden md:block flex-shrink-0 p-1 hover:bg-blue-900 rounded-lg transition-colors"
+          >
+            <CgMenuGridO className="text-xl" />
+          </button>
+          <p className="ml-2 md:ml-4 truncate text-sm md:text-base">
+            Dynamics 365
+          </p>
           <p className="mx-2 hidden lg:block">|</p>
           <p className="hidden lg:block truncate">Sales hub</p>
         </div>
@@ -92,17 +115,26 @@ export default function Home() {
       </div>
 
       {/* Main Container */}
-      <div className="flex min-h-[calc(100vh-2.5rem)] relative">
-        {/* Sidebar - Mobile */}
+      <div className="flex flex-1 overflow-hidden relative">
+        {/* Mobile Sidebar */}
+        <div
+          className={`fixed transform ${
+            isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+          } md:hidden w-64 bg-white z-40 transition-transform duration-300 ease-in-out shadow-lg`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <SideBar isOpen={true} setIsOpen={() => {}} />
+        </div>
+
+        {/* Mobile Overlay */}
         {isMobileMenuOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 md:hidden">
-            <div className="w-64 bg-white h-full animate-slide-in">
-              <SideBar isOpen={true} setIsOpen={() => setIsMobileMenuOpen(false)} />
-            </div>
-          </div>
+          <div
+            className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
+            onClick={toggleMobileMenu}
+          />
         )}
 
-        {/* Sidebar - Desktop */}
+        {/* Desktop Sidebar */}
         <div
           className={`hidden md:block transition-all duration-300 ease-in-out flex-shrink-0 ${
             isOpen ? "w-60" : "w-16"
@@ -112,7 +144,7 @@ export default function Home() {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 p-2 md:p-4 overflow-x-hidden pb-16 sm:pb-4">
+        <div className="flex-1 p-2 md:p-4 overflow-y-auto">
           {/* Page Title */}
           <div className="mb-4 p-2 bg-white rounded">
             <LeadsHeader />
@@ -138,10 +170,8 @@ export default function Home() {
           </div>
 
           {/* Leads Table */}
-          <div className="w-full overflow-x-auto">
-            <div className="min-w-full">
-              <LeadsTable leads={leads} onUserClick={handleUserClick} />
-            </div>
+          <div className="w-full">
+            <LeadsTable leads={leads} onUserClick={handleUserClick} />
           </div>
 
           {/* User Modal */}
