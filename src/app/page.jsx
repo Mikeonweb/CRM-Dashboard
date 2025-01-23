@@ -79,7 +79,7 @@ export default function Home() {
   };
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden">
+    <div className="h-screen w-screen flex flex-col overflow-hidden">
       {/* Header */}
       <div className="bg-blue-950 h-10 flex px-2 justify-between items-center flex-shrink-0 relative z-50">
         {/* Left header section */}
