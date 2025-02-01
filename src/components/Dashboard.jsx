@@ -270,170 +270,330 @@ const Dashboard = () => {
             </DialogHeader>
 
             <div className="mt-4 overflow-y-auto max-h-[calc(90vh-8rem)]">
-              <div className="child1 space-y-4">
-                {leads.map((lead) => (
-                  <div
-                    key={lead.id}
-                    className="p-4 border rounded-xl hover:bg-gray-100 transition-colors cursor-pointer"
-                    onClick={() => handleLeadClick(lead)}
-                  >
-                    <div className="flex justify-between items-start">
-                      <div className="flex space-x-3">
-                        <div className="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0"></div>
-                        <div>
-                          <h3 className="font-medium">{lead.name}</h3>
-                          <p className="text-sm text-gray-500">
-                            {lead.title} • {lead.company}
-                          </p>
+              {/* Conditional Rendering Based on Selected Lead */}
+              {selectedLead?.id === 1 ? (
+                // Content for Jane Reyes (Lead 1)
+                <>
+                  <div className="child1 space-y-4">
+                    <div className="p-4 border rounded-xl hover:bg-gray-100 transition-colors cursor-pointer">
+                      <div className="flex justify-between items-start">
+                        <div className="flex space-x-3">
+                          <div className="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0"></div>
+                          <div>
+                            <h3 className="font-medium">{selectedLead.name}</h3>
+                            <p className="text-sm text-gray-500">
+                              {selectedLead.title} • {selectedLead.company}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
 
-              <div className="child2 bg-gradient-to-r from-blue-100 to-purple-100 rounded-xl border-none mt-4">
-                <div className="block md:flex justify-between items-center p-4 rounded-xl hover:bg-gray-100 transition-colors">
-                  <div className="flex items-center gap-2 md:pb-0 pb-4">
-                    <BsStars className="text-[2rem] flex-shrink-0" />
-                    <p className="md:text-[0.70rem] bg-gradient-to-r from-blue-400 to-purple-400 text-transparent bg-clip-text">
-                      Jane maybe interested in upgrading espresso machines for
-                      her in-store coffee shops.
-                    </p>
-                  </div>
-                  <div className="flex justify-between gap-2 text-sm">
-                    <button className="flex items-center bg-white gap-2 border border-gray-400 rounded-xl p-2">
-                      <Pencil />
-                      Edit
-                    </button>
-                    <button className="flex items-center text-white gap-2 rounded-xl p-2 bg-gradient-to-r from-blue-700 to-purple-600">
-                      <SendHorizontal />
-                      Approve and send
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="child3">
-                <div className="flex gap-4 p-4 text-gray-500 mt-4 border rounded-xl hover:bg-gray-100 transition-colors cursor-pointer">
-                  <p>Engage</p>
-                  <p>Research</p>
-                </div>
-              </div>
-
-              <div className="child4">
-                <div className="p-4 text-gray-500 mt-4 border rounded-xl hover:bg-gray-100 transition-colors">
-                  <div className="p-4 w-full rounded-xl bg-gradient-to-r from-blue-100 to-purple-100">
-                    <h3 className="bg-gradient-to-r from-blue-700 to-purple-600 text-transparent bg-clip-text">
-                      Why I picked this lead
-                    </h3>
-                    <ul className="ml-8 list-disc">
-                      <li>
-                        Jane is a
-                        <span className="text-black mx-1">
-                          key decision maker
-                        </span>
-                        and was browsing
-                        <span className="text-black mx-1">
-                          'espresso machines'
-                        </span>{" "}
-                        on first Coffe's website
-                      </li>
-                      <li>
-                        Multiple people at her company have reported 'slowness'
-                        during
-                        <span className="text-black mx-1">
-                          service requests
-                        </span>
-                      </li>
-                      <li>
-                        Northwind Traders currently see
-                        <span className="text-black mx-1">
-                          $200M in revenue
-                        </span>{" "}
-                        from their in-store coffee shops.
-                      </li>
-                    </ul>
-
-                    <div className="flex flex-wrap gap-4 mt-4">
-                      <div className="flex-1 min-w-[250px] h-20 bg-white rounded-xl shadow-md flex items-center justify-center gap-2">
-                        <CircleCheckBig className="text-[2rem]" />
-                        <span>
-                          <p className="text-[.60rem]">Decision maker</p>
-                          <h3 className="text-[.90rem] bg-gradient-to-r from-blue-700 to-purple-600 text-transparent bg-clip-text">
-                            Yes
-                          </h3>
-                        </span>
+                  <div className="child2 bg-gradient-to-r from-blue-100 to-purple-100 rounded-xl border-none mt-4">
+                    <div className="block md:flex justify-between items-center p-4 rounded-xl hover:bg-gray-100 transition-colors">
+                      <div className="flex items-center gap-2 md:pb-0 pb-4">
+                        <BsStars className="text-[2rem] flex-shrink-0" />
+                        <p className="md:text-[0.70rem] bg-gradient-to-r from-blue-400 to-purple-400 text-transparent bg-clip-text">
+                          Jane may be interested in upgrading espresso machines
+                          for her in-store coffee shops.
+                        </p>
                       </div>
-                      <div className="flex-1 min-w-[250px] h-20 bg-white rounded-xl shadow-md flex items-center justify-center gap-2">
-                        <Medal className="text-[2rem]" />
-                        <span>
-                          <p className="text-[.60rem]">Potential deal value</p>
-                          <h3 className="text-[.90rem] bg-gradient-to-r from-blue-700 to-purple-600 text-transparent bg-clip-text">
-                            $1M
-                          </h3>
-                        </span>
-                      </div>
-                      <div className="flex-1 min-w-[250px] h-20 bg-white rounded-xl shadow-md flex items-center justify-center gap-2">
-                        <ArrowsUpFromLine className="text-[2rem]" />
-                        <span>
-                          <p className="text-[.60rem]">Intent</p>
-                          <h3 className="text-[.90rem] bg-gradient-to-r from-blue-700 to-purple-600 text-transparent bg-clip-text">
-                            High
-                          </h3>
-                        </span>
+                      <div className="flex justify-between gap-2 text-sm">
+                        <button className="flex items-center bg-white gap-2 border border-gray-400 rounded-xl p-2">
+                          <Pencil />
+                          Edit
+                        </button>
+                        <button className="flex items-center text-white gap-2 rounded-xl p-2 bg-gradient-to-r from-blue-700 to-purple-600">
+                          <SendHorizontal />
+                          Approve and send
+                        </button>
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mt-4">
-                    <div className="flex flex-wrap gap-2">
-                      <span className="bg-gray-200 py-1 px-2 rounded flex items-center text-sm">
-                        <BsFillShieldLockFill className="text-yellow-500" />
-                      </span>
-                      <span className="bg-gray-200 py-1 px-2 rounded text-sm gap-2 flex">
-                        <p>1</p>
-                        <p>D365 Sales</p>
-                      </span>
-                      <span className="bg-gray-200 py-1 px-2 rounded text-sm">
-                        +2
-                      </span>
+                  <div className="child3">
+                    <div className="flex gap-4 p-4 text-gray-500 mt-4 border rounded-xl hover:bg-gray-100 transition-colors cursor-pointer">
+                      <p>Engage</p>
+                      <p>Research</p>
                     </div>
-                    <div className="flex items-center justify-center gap-2">
-                      <p className="bg-gray-200 py-1 px-2 rounded text-sm">
-                        Ai generated content maybe incorrect
+                  </div>
+
+                  <div className="child4">
+                    <div className="p-4 text-gray-500 mt-4 border rounded-xl hover:bg-gray-100 transition-colors">
+                      <div className="p-4 w-full rounded-xl bg-gradient-to-r from-blue-100 to-purple-100">
+                        <h3 className="bg-gradient-to-r from-blue-700 to-purple-600 text-transparent bg-clip-text">
+                          Why I picked this lead
+                        </h3>
+                        <ul className="ml-8 list-disc">
+                          <li>
+                            Jane is a
+                            <span className="text-black mx-1">
+                              key decision maker
+                            </span>
+                            and was browsing
+                            <span className="text-black mx-1">
+                              'espresso machines'
+                            </span>{" "}
+                            on First Coffee's website.
+                          </li>
+                          <li>
+                            Multiple people at her company have reported
+                            'slowness' during
+                            <span className="text-black mx-1">
+                              service requests
+                            </span>
+                            .
+                          </li>
+                          <li>
+                            Northwind Traders currently see
+                            <span className="text-black mx-1">
+                              $200M in revenue
+                            </span>{" "}
+                            from their in-store coffee shops.
+                          </li>
+                        </ul>
+
+                        <div className="flex flex-wrap gap-4 mt-4">
+                          <div className="flex-1 min-w-[250px] h-20 bg-white rounded-xl shadow-md flex items-center justify-center gap-2">
+                            <CircleCheckBig className="text-[2rem]" />
+                            <span>
+                              <p className="text-[.60rem]">Decision maker</p>
+                              <h3 className="text-[.90rem] bg-gradient-to-r from-blue-700 to-purple-600 text-transparent bg-clip-text">
+                                Yes
+                              </h3>
+                            </span>
+                          </div>
+                          <div className="flex-1 min-w-[250px] h-20 bg-white rounded-xl shadow-md flex items-center justify-center gap-2">
+                            <Medal className="text-[2rem]" />
+                            <span>
+                              <p className="text-[.60rem]">
+                                Potential deal value
+                              </p>
+                              <h3 className="text-[.90rem] bg-gradient-to-r from-blue-700 to-purple-600 text-transparent bg-clip-text">
+                                $1M
+                              </h3>
+                            </span>
+                          </div>
+                          <div className="flex-1 min-w-[250px] h-20 bg-white rounded-xl shadow-md flex items-center justify-center gap-2">
+                            <ArrowsUpFromLine className="text-[2rem]" />
+                            <span>
+                              <p className="text-[.60rem]">Intent</p>
+                              <h3 className="text-[.90rem] bg-gradient-to-r from-blue-700 to-purple-600 text-transparent bg-clip-text">
+                                High
+                              </h3>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mt-4">
+                        <div className="flex flex-wrap gap-2">
+                          <span className="bg-gray-200 py-1 px-2 rounded flex items-center text-sm">
+                            <BsFillShieldLockFill className="text-yellow-500" />
+                          </span>
+                          <span className="bg-gray-200 py-1 px-2 rounded text-sm gap-2 flex">
+                            <p>1</p>
+                            <p>D365 Sales</p>
+                          </span>
+                          <span className="bg-gray-200 py-1 px-2 rounded text-sm">
+                            +2
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-center gap-2">
+                          <p className="bg-gray-200 py-1 px-2 rounded text-sm">
+                            AI-generated content may be incorrect
+                          </p>
+                          <ThumbsUp />
+                          <ThumbsDown />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="child5">
+                    <div className="gap-4 p-4 mt-4 border rounded-xl hover:bg-gray-100 transition-colors cursor-pointer">
+                      <div className="flex justify-between items-center">
+                        <h3>About Jane</h3>
+                        <ChevronDown className="text-gray-500" />
+                      </div>
+                      <p className="text-gray-500 mt-2">
+                        Jane Reyes, the Chief Operating Officer of Northwind
+                        Traders, is a dynamic leader with a proven track record
+                        in optimizing operations and enhancing customer
+                        experiences. Under her guidance, Northwind Traders'
+                        in-store coffee shops have flourished, becoming a
+                        hallmark of quality and innovation. Jane's commitment to
+                        excellence makes her an ideal partner for First Coffee.
+                        She is always seeking top-tier equipment to elevate her
+                        coffee shop offerings.
                       </p>
-                      <ThumbsUp />
-                      <ThumbsDown />
                     </div>
                   </div>
-                </div>
-              </div>
-
-              <div className="child5">
-                <div className="gap-4 p-4 mt-4 border rounded-xl hover:bg-gray-100 transition-colors cursor-pointer">
-                  <div className="flex justify-between items-center">
-                    <h3>About Jane</h3>
-                    <ChevronDown className="text-gray-500" />
+                </>
+              ) : selectedLead?.id === 2 ? (
+                // Content for Allan Munger (Lead 2)
+                <>
+                  <div className="child1 space-y-4">
+                    <div className="p-4 border rounded-xl hover:bg-gray-100 transition-colors cursor-pointer">
+                      <div className="flex justify-between items-start">
+                        <div className="flex space-x-3">
+                          <div className="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0"></div>
+                          <div>
+                            <h3 className="font-medium">{selectedLead.name}</h3>
+                            <p className="text-sm text-gray-500">
+                              {selectedLead.title} • {selectedLead.company}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <p className="text-gray-500 mt-2">
-                    Jane Reyes, the Chief Operating Officer of Northwind
-                    Traders, is a dynamic leader with a proven track record in
-                    optimizing operations and enhancing customer experiences.
-                    Under her guidance, Northwind Traders' in-store coffee shops
-                    have flourished, becoming a hallmark of quality and
-                    innovation. Jane's commitment to excellence makes her an
-                    ideal partner for First Coffee. She is always seekig
-                    top-tier equipment to elevate her coffee shops offerings
-                  </p>
-                </div>
-              </div>
 
+                  <div className="child2 bg-gradient-to-r from-blue-100 to-purple-100 rounded-xl border-none mt-4">
+                    <div className="block md:flex justify-between items-center p-4 rounded-xl hover:bg-gray-100 transition-colors">
+                      <div className="flex items-center gap-2 md:pb-0 pb-4">
+                        <BsStars className="text-[2rem] flex-shrink-0" />
+                        <p className="md:text-[0.70rem] bg-gradient-to-r from-blue-400 to-purple-400 text-transparent bg-clip-text">
+                          Allan is preparing for a high-buying intent meeting
+                          regarding upgrading the service contract.
+                        </p>
+                      </div>
+                      <div className="flex justify-between gap-2 text-sm">
+                        <button className="flex items-center bg-white gap-2 border border-gray-400 rounded-xl p-2">
+                          <Pencil />
+                          Edit
+                        </button>
+                        <button className="flex items-center text-white gap-2 rounded-xl p-2 bg-gradient-to-r from-blue-700 to-purple-600">
+                          <SendHorizontal />
+                          Approve and send
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="child3">
+                    <div className="flex gap-4 p-4 text-gray-500 mt-4 border rounded-xl hover:bg-gray-100 transition-colors cursor-pointer">
+                      <p>Engage</p>
+                      <p>Research</p>
+                    </div>
+                  </div>
+
+                  <div className="child4">
+                    <div className="p-4 text-gray-500 mt-4 border rounded-xl hover:bg-gray-100 transition-colors">
+                      <div className="p-4 w-full rounded-xl bg-gradient-to-r from-blue-100 to-purple-100">
+                        <h3 className="bg-gradient-to-r from-blue-700 to-purple-600 text-transparent bg-clip-text">
+                          Why I picked this lead
+                        </h3>
+                        <ul className="ml-8 list-disc">
+                          <li>
+                            Allan is a
+                            <span className="text-black mx-1">
+                              key decision maker
+                            </span>
+                            and is reviewing the
+                            <span className="text-black mx-1">
+                              service contract
+                            </span>
+                            .
+                          </li>
+                          <li>
+                            Contoso Coffee has expressed interest in upgrading
+                            their service contract for
+                            <span className="text-black mx-1">
+                              50+ locations
+                            </span>
+                            .
+                          </li>
+                          <li>
+                            The potential deal value is estimated at
+                            <span className="text-black mx-1">$1.8M</span>.
+                          </li>
+                        </ul>
+
+                        <div className="flex flex-wrap gap-4 mt-4">
+                          <div className="flex-1 min-w-[250px] h-20 bg-white rounded-xl shadow-md flex items-center justify-center gap-2">
+                            <CircleCheckBig className="text-[2rem]" />
+                            <span>
+                              <p className="text-[.60rem]">Decision maker</p>
+                              <h3 className="text-[.90rem] bg-gradient-to-r from-blue-700 to-purple-600 text-transparent bg-clip-text">
+                                Yes
+                              </h3>
+                            </span>
+                          </div>
+                          <div className="flex-1 min-w-[250px] h-20 bg-white rounded-xl shadow-md flex items-center justify-center gap-2">
+                            <Medal className="text-[2rem]" />
+                            <span>
+                              <p className="text-[.60rem]">
+                                Potential deal value
+                              </p>
+                              <h3 className="text-[.90rem] bg-gradient-to-r from-blue-700 to-purple-600 text-transparent bg-clip-text">
+                                $1.8M
+                              </h3>
+                            </span>
+                          </div>
+                          <div className="flex-1 min-w-[250px] h-20 bg-white rounded-xl shadow-md flex items-center justify-center gap-2">
+                            <ArrowsUpFromLine className="text-[2rem]" />
+                            <span>
+                              <p className="text-[.60rem]">Intent</p>
+                              <h3 className="text-[.90rem] bg-gradient-to-r from-blue-700 to-purple-600 text-transparent bg-clip-text">
+                                High
+                              </h3>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mt-4">
+                        <div className="flex flex-wrap gap-2">
+                          <span className="bg-gray-200 py-1 px-2 rounded flex items-center text-sm">
+                            <BsFillShieldLockFill className="text-yellow-500" />
+                          </span>
+                          <span className="bg-gray-200 py-1 px-2 rounded text-sm gap-2 flex">
+                            <p>1</p>
+                            <p>D365 Sales</p>
+                          </span>
+                          <span className="bg-gray-200 py-1 px-2 rounded text-sm">
+                            +2
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-center gap-2">
+                          <p className="bg-gray-200 py-1 px-2 rounded text-sm">
+                            AI-generated content may be incorrect
+                          </p>
+                          <ThumbsUp />
+                          <ThumbsDown />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="child5">
+                    <div className="gap-4 p-4 mt-4 border rounded-xl hover:bg-gray-100 transition-colors cursor-pointer">
+                      <div className="flex justify-between items-center">
+                        <h3>About Allan</h3>
+                        <ChevronDown className="text-gray-500" />
+                      </div>
+                      <p className="text-gray-500 mt-2">
+                        Allan Munger, the Head of Real Estate Development at
+                        Contoso Coffee, is a strategic thinker with a focus on
+                        scaling operations and improving service quality. He is
+                        currently evaluating upgrades to the service contract
+                        for Contoso Coffee's 50+ locations. Allan's
+                        forward-thinking approach makes him a key stakeholder in
+                        this deal.
+                      </p>
+                    </div>
+                  </div>
+                </>
+              ) : null}
+
+              {/* Pagination and Feedback Section */}
               <div className="child6 flex flex-col sm:flex-row justify-between items-center mt-8 gap-4">
                 <div className="flex gap-4">
-                  <p className="text-gray-500">Show 1 0f 9</p>
+                  <p className="text-gray-500">Show 1 of 9</p>
                   <p className="text-gray-500">|</p>
-                  <p className="text-blue-600 cursor-pointer">show all</p>
+                  <p className="text-blue-600 cursor-pointer">Show all</p>
                 </div>
                 <div className="flex gap-1">
                   <p className="h-1 w-10 bg-blue-800 rounded-3xl"></p>
