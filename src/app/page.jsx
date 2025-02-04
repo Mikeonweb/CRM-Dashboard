@@ -112,7 +112,7 @@ export default function Home() {
             isMobileDrawerOpen ? "translate-x-0" : "-translate-x-full"
           } md:hidden`}
         >
-          <div className="w-60 h-full bg-white shadow-lg mt-5 lg:mt-0 md:mt-0">
+          <div className="w-60 h-full bg-white shadow-lg pt-5 pb-5 lg:pt-0 md:pt-0">
             <SideBar isOpen={true} setIsOpen={setMobileDrawerOpen} />
           </div>
         </div>
