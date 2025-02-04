@@ -188,7 +188,7 @@ const Dashboard = () => {
               {leads.map((lead) => (
                 <div
                   key={lead.id}
-                  className="p-4 border rounded-xl hover:bg-gray-100 transition-colors cursor-pointer"
+                  className="user-card p-4 border rounded-xl hover:bg-gray-100 transition-colors cursor-pointer"
                   onClick={() => handleLeadClick(lead)}
                 >
                   <div className="flex justify-between items-start">
@@ -196,9 +196,12 @@ const Dashboard = () => {
                       <div className="w-10 h-10 flex-shrink-0 bg-gray-300 rounded-full"></div>
                       <div className="min-w-0 flex-1">
                         <h3 className="font-medium truncate">{lead.name}</h3>
-                        <p className="text-sm text-gray-500 truncate">
-                          {lead.title} • {lead.company}
-                        </p>
+                        <div className="title text-sm text-gray-500 truncate">
+                          {lead.title}
+                        </div>
+                        <div className="company text-sm text-gray-500 truncate">
+                          {lead.company}
+                        </div>
                       </div>
                     </div>
                     <ArrowUpRight className="w-5 h-5 text-blue-600 flex-shrink-0" />

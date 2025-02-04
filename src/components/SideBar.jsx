@@ -185,12 +185,12 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       </div>
 
       {/* Mobile overlay */}
-      {isMobile && isOpen && (
+      {/* {isMobile && isOpen && (
         <div
           className="absolute inset-0 bg-black bg-opacity-50"
           onClick={() => setIsOpen(false)}
         />
-      )}
+      )} */}
 
       {/* Agent Skill Modal */}
       {isAgentSkillOpen && (

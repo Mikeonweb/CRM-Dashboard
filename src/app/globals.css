@@ -69,6 +69,35 @@ body {
     --chart-5: 340 75% 55%;
   }
 }
+
+/* user card area */
+.user-card {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.user-card .title,
+.user-card .company {
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.user-card .title {
+  font-weight: bold;
+}
+
+.user-card .company {
+  color: #555;
+}
+/* ..... */
+
+
+
 @layer base {
   * {
     @apply border-border;

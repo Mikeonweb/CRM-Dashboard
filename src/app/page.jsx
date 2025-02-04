@@ -18,9 +18,8 @@ import { FaRegCircleUser, FaChalkboardUser, FaQuestion } from "react-icons/fa6";
 export default function Home() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [isAgentSkillOpen, setAgentSkillOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(true);
+  const [isMobileDrawerOpen, setMobileDrawerOpen] = useState(false);
 
   // Handle window resize and set initial state
   useEffect(() => {
@@ -30,21 +29,12 @@ export default function Home() {
       } else {
         setIsOpen(false);
       }
-      // Close mobile menu when screen size changes
-      if (window.innerWidth >= 768) {
-        setIsMobileMenuOpen(false);
-      }
     };
 
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  const toggleMobileMenu = (e) => {
-    e.stopPropagation(); // Stop event propagation
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
 
   const leads = [
     {
@@ -85,14 +75,14 @@ export default function Home() {
         {/* Left header section */}
         <div className="flex text-white items-center overflow-hidden">
           <button
-            onClick={toggleMobileMenu}
-            className="md:hidden flex-shrink-0 mr-2 p-1 hover:bg-blue-900 rounded-lg transition-colors"
-          >
-            <CgMenuGridO className="text-xl" />
-          </button>
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="hidden md:block flex-shrink-0 p-1 hover:bg-blue-900 rounded-lg transition-colors"
+            onClick={() => {
+              if (window.innerWidth < 1024) {
+                setMobileDrawerOpen(!isMobileDrawerOpen);
+              } else {
+                setIsOpen(!isOpen);
+              }
+            }}
+            className="flex-shrink-0 p-1 hover:bg-blue-900 rounded-lg transition-colors"
           >
             <CgMenuGridO className="text-xl" />
           </button>
@@ -116,22 +106,23 @@ export default function Home() {
 
       {/* Main Container */}
       <div className="flex flex-1 overflow-hidden relative">
-        {/* Mobile Sidebar */}
+        {/* Mobile Side Drawer */}
         <div
-          className={`fixed transform ${
-            isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-          } md:hidden w-64 bg-white z-40 transition-transform duration-300 ease-in-out shadow-lg`}
-          onClick={(e) => e.stopPropagation()}
+          className={`fixed inset-0 z-40 transform transition-transform duration-300 ease-in-out ${
+            isMobileDrawerOpen ? "translate-x-0" : "-translate-x-full"
+          } md:hidden`}
         >
-          <SideBar isOpen={true} setIsOpen={() => {}} />
+          <div className="w-60 h-full bg-white shadow-lg mt-5 lg:mt-0 md:mt-0">
+            <SideBar isOpen={true} setIsOpen={setMobileDrawerOpen} />
+          </div>
         </div>
 
-        {/* Mobile Overlay */}
-        {isMobileMenuOpen && (
+        {/* Overlay for Mobile Drawer */}
+        {isMobileDrawerOpen && (
           <div
-            className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
-            onClick={toggleMobileMenu}
-          />
+            className="fixed inset-0 z-30 bg-black bg-opacity-50 md:hidden"
+            onClick={() => setMobileDrawerOpen(false)}
+          ></div>
         )}
 
         {/* Desktop Sidebar */}
@@ -170,7 +161,7 @@ export default function Home() {
           </div>
 
           {/* Leads Table */}
-          <div className="w-full">
+          <div className="w-full mb-5 lg:mb-0 md:mb-0">
             <LeadsTable leads={leads} onUserClick={handleUserClick} />
           </div>
 
@@ -191,12 +182,12 @@ export default function Home() {
         </div>
 
         {/* Mobile Bottom Navigation */}
-        <div className="fixed bottom-0 left-0 right-0 bg-slate-100 flex justify-around items-center h-14 sm:hidden z-40">
+        {/* <div className="fixed bottom-0 left-0 right-0 bg-slate-100 flex justify-around items-center h-14 sm:hidden z-40">
           <SiDynatrace className="text-lg" />
           <HiOutlineChatBubbleLeftRight className="text-lg" />
           <IoCallOutline className="text-lg" />
           <MdChatBubbleOutline className="text-lg" />
-        </div>
+        </div> */}
       </div>
     </div>
   );
