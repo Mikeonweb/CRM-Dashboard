@@ -19,6 +19,7 @@ import { PiCardholder, PiPackage } from "react-icons/pi";
 import { TbBrandPagekit, TbUserQuestion } from "react-icons/tb";
 import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
 import { BsClipboardData, BsListTask } from "react-icons/bs";
+import { TbLetterS } from "react-icons/tb";
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
   const [isMobile, setIsMobile] = useState(false);
@@ -67,18 +68,20 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     onClick,
     hasDropdown,
     isExpanded,
+    iconStyle, // Add iconStyle prop
   }) => (
     <div
-      className={`
-        flex items-center justify-between px-4 py-2 cursor-pointer
-        transition-colors duration-200 
-        ${active ? "bg-white" : "hover:bg-gray-100"}
-        ${isOpen ? "mx-2 rounded-lg" : "mx-1"}
-      `}
+      className={`flex items-center justify-between px-4 py-2 cursor-pointer transition-colors duration-200 ${
+        active ? "bg-white" : "hover:bg-gray-200"
+      } ${isOpen ? "mx-2 rounded-lg" : "mx-1"}`}
       onClick={onClick}
     >
       <div className="flex items-center gap-3">
-        <Icon className={`${active ? "text-blue-600" : "text-gray-600"}`} />
+        <Icon
+          className={`${active ? "text-blue-600" : "text-gray-600"}`}
+          style={iconStyle}
+        />
+        {/* Apply iconStyle */}
         {isOpen && (
           <span className={`${active ? "font-medium" : ""}`}>{text}</span>
         )}
@@ -106,12 +109,9 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   return (
     <>
       <div
-        className={`
-        flex flex-col h-full bg-gray-50 border-r border-gray-200
-        transition-all duration-300 ease-in-out
-        ${isOpen ? "w-60" : "w-16"}
-        ${isMobile && !isOpen ? "-translate-x-full" : "translate-x-0"}
-      `}
+        className={`flex flex-col h-full bg-gray-50 border-r border-gray-200 transition-all duration-300 ease-in-out ${
+          isOpen ? "w-60" : "w-16"
+        } ${isMobile && !isOpen ? "-translate-x-full" : "translate-x-0"}`}
       >
         <div className="flex items-center justify-between p-4">
           <button
@@ -131,7 +131,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
           )}
         </div>
 
-        <div className="flex-1 overflow-y-auto">
+        <div className="nav-item flex-1 overflow-y-auto">
           <NavItem icon={GrHomeRounded} text="Home" />
           <NavItem
             icon={IoTimeOutline}
@@ -175,7 +175,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 
           <SectionTitle title="Performance" />
           <NavItem
-            icon={BsListTask}
+            icon={TbLetterS}
+            iconStyle={{ color: "white", backgroundColor: "indigo", width: "2em",height: "2em", padding: ".5em", borderRadius: ".2em" }}
             text="Sales"
             hasDropdown
             isExpanded={expandedSections.sales}

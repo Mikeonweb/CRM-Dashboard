@@ -101,7 +101,7 @@ const Dashboard = () => {
     <div className="w-full  p-4 bg-white rounded-3xl sm:px-6 lg:px-8 ">
       <div className="space-y-6">
         {/* Header Section */}
-        <div className="flex flex-col lg:flex-row gap-6 lg:items-center lg:justify-between">
+        <div className="flex flex-col md:flex lg:flex-col xl:flex-row gap-6 lg:items-center lg:justify-between">
           {/* User Profile Section */}
           <div className="flex items-start space-x-3 flex-shrink-0">
             <div className="w-6 h-6 bg-gradient-to-r from-blue-400 to-purple-400 rounded-lg mt-1"></div>
@@ -115,11 +115,11 @@ const Dashboard = () => {
           </div>
 
           {/* Progress Section */}
-          <div className="w-full lg:w-auto flex-1 space-y-3">
+          <div className="w-full lg:w-auto flex-1 space-y-1">
             {/* Progress Details */}
-            <div className="flex flex-col sm:flex-row sm:items-center text-xs sm:text-sm text-gray-600 gap-2 sm:gap-4">
+            <div className="flex justify-between flex-row sm:flex-row sm:items-center text-xs sm:text-sm text-gray-600 gap-2 sm:gap-4">
               <div>1 month until Q4 ends</div>
-              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6">
+              <div className="flex flex-row sm:flex-row sm:items-center gap-2 sm:gap-6">
                 <span className="font-medium relative">
                   <span className="absolute text-xl left-[-.30em] bottom-[-0.50em] z-10">
                     |
